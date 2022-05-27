@@ -7,6 +7,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import { makeStyles } from '@material-ui/core/styles';
 import { BrowserRouter as Router } from "react-router-dom";
 import SideNavigation from './SideNavigation';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -61,21 +62,21 @@ export default function Header() {
                     </Box>
                     <Box className={classes.menu}>
                         
-                        <a href="/" className={classes.link}>
+                        <Link to="/" className={classes.link}>
                             <Button className={classes.button}>
                                 Thể lệ cuộc thi
                             </Button>
-                        </a>
-                        <a href="/dang-ky-tham-du" className={classes.link}>
+                        </Link>
+                        <Link to="/dang-ky-tham-du" className={classes.link}>
                             <Button className={classes.button}>
                                 Đăng ký tham dự
                             </Button>
-                        </a>
-                        <a href="/danh-sach-thi-sinh" className={classes.link}>
+                        </Link>
+                        <Link to="/danh-sach-thi-sinh" className={classes.link}>
                             <Button className={classes.button}>
                                 Danh sách thí sinh
                             </Button>
-                        </a>
+                        </Link>
                     </Box>
                     <SideNavigation className={classes.menuButton} />
                 </Container>

@@ -10,6 +10,7 @@ import { IconButton } from '@material-ui/core';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import CreateIcon from '@material-ui/icons/Create';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -50,24 +51,24 @@ export default function SideNavigation() {
                 open={open}
             >
                 <List>
-                    <a href='/' className={classes.link}>
+                    <Link to='/' className={classes.link}>
                         <ListItem button>
                             <ListItemIcon><AssignmentIcon /></ListItemIcon>
                             <ListItemText primary='Thể lệ cuộc thi' />
                         </ListItem>
-                    </a>
-                    <a href='/dang-ky-tham-du' className={classes.link}>
+                    </Link>
+                    <Link to='/dang-ky-tham-du' className={classes.link}>
                         <ListItem button>
                             <ListItemIcon><CreateIcon /></ListItemIcon>
                             <ListItemText primary='Đăng ký tham dự' />
                         </ListItem>
-                    </a>
-                    <a href="/danh-sach-thi-sinh" className={classes.link}>
+                    </Link>
+                    <Link to="/danh-sach-thi-sinh" className={classes.link}>
                         <ListItem button>
                             <ListItemIcon><PeopleAltIcon /></ListItemIcon>
                             <ListItemText primary='Danh sách thí sinh' />
                         </ListItem>
-                    </a>
+                    </Link>
                 </List>
             </SwipeableDrawer>
         </React.Fragment>
