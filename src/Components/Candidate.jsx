@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Box } from '@material-ui/core';
-import CandidateDialog from './CandidateDialog';
+import { CardActionArea } from '@material-ui/core';
+import CandidatePopup from './CandidatePopup';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 300,
+        border: "2px solid #FA8072"
     },
     content: {
         width: '60%',
@@ -23,20 +23,18 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Candidate({ image, name, age, height, weight }) {
+export default function Candidate({ item, image, name, age, height, weight }) {
 
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const handleClickOpen = () => {
         setOpen(true);
     };
-
-    const handleClose = (value) => {
-        setOpen(false);
-    };
+    console.log(image)
 
     return (
         <Card className={classes.root}>
+            <CardActionArea onClick={handleClickOpen}>
                 <CardMedia
                     className={classes.media}
                     image={image}
@@ -58,12 +56,12 @@ export default function Candidate({ image, name, age, height, weight }) {
                         </Typography>
                     </Box>
                 </CardContent>
-            <CardActions>
-                <Button size="small" color="primary" onClick={handleClickOpen}>
-                    Thông tin chi tiết
-                </Button>
-                <CandidateDialog open={open} onClose={handleClose} />
-            </CardActions>
+            </CardActionArea>
+                <CandidatePopup 
+                open={open} 
+                setOpen={setOpen}
+                item={item} 
+                />
         </Card>
     );
 }

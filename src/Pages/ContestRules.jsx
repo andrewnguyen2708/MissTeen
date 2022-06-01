@@ -1,9 +1,9 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import CardMedia from '@material-ui/core/CardMedia';
-import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -12,13 +12,12 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-export default function Rules() {
-
+export default function ContestRules() {
     const classes = useStyles();
     
     return (
         <Container >
-            <Paper elevation={3} >
+            <Paper elevation={5} >
                 <CardMedia
                     component="img"
                     alt="cover"

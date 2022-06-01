@@ -10,7 +10,7 @@ import { IconButton } from '@material-ui/core';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import CreateIcon from '@material-ui/icons/Create';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-import { Link } from 'react-router-dom';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -38,7 +38,6 @@ export default function SideNavigation() {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
 
-
     return (
 
         <React.Fragment >
@@ -51,24 +50,30 @@ export default function SideNavigation() {
                 open={open}
             >
                 <List>
-                    <Link to='/' className={classes.link}>
+                    <a href='/' className={classes.link}>
                         <ListItem button>
                             <ListItemIcon><AssignmentIcon /></ListItemIcon>
                             <ListItemText primary='Thể lệ cuộc thi' />
                         </ListItem>
-                    </Link>
-                    <Link to='/dang-ky-tham-du' className={classes.link}>
+                    </a>
+                    <a href='/dang-ky-tham-du' className={classes.link}>
                         <ListItem button>
                             <ListItemIcon><CreateIcon /></ListItemIcon>
                             <ListItemText primary='Đăng ký tham dự' />
                         </ListItem>
-                    </Link>
-                    <Link to="/danh-sach-thi-sinh" className={classes.link}>
+                    </a>
+                    <a href="/danh-sach-thi-sinh" className={classes.link}>
                         <ListItem button>
                             <ListItemIcon><PeopleAltIcon /></ListItemIcon>
                             <ListItemText primary='Danh sách thí sinh' />
                         </ListItem>
-                    </Link>
+                    </a>
+                    <a href="/quan-ly-danh-sach-thi-sinh" className={classes.link}>
+                        <ListItem button>
+                            <ListItemIcon><AssignmentIndIcon /></ListItemIcon>
+                            <ListItemText primary='Quản lý thí sinh' />
+                        </ListItem>
+                    </a>
                 </List>
             </SwipeableDrawer>
         </React.Fragment>

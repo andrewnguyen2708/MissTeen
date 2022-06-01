@@ -7,11 +7,11 @@ import CardMedia from '@material-ui/core/CardMedia';
 import { makeStyles } from '@material-ui/core/styles';
 import { BrowserRouter as Router } from "react-router-dom";
 import SideNavigation from './SideNavigation';
-import { Link } from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        backgroundColor: '#ca6692',
+        backgroundColor: theme.palette.primary,
         color: '#fff',
     },
     navigation: {
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
     menu: {
         display: 'flex',
-        width: '40%',
+        width: '60%',
         justifyContent: 'space-around',
         [theme.breakpoints.down('md')]: {
             display: 'none'
@@ -62,21 +62,26 @@ export default function Header() {
                     </Box>
                     <Box className={classes.menu}>
                         
-                        <Link to="/" className={classes.link}>
+                        <a href="/" className={classes.link}>
                             <Button className={classes.button}>
                                 Thể lệ cuộc thi
                             </Button>
-                        </Link>
-                        <Link to="/dang-ky-tham-du" className={classes.link}>
+                        </a>
+                        <a href="/dang-ky-tham-du" className={classes.link}>
                             <Button className={classes.button}>
                                 Đăng ký tham dự
                             </Button>
-                        </Link>
-                        <Link to="/danh-sach-thi-sinh" className={classes.link}>
+                        </a>
+                        <a href="/danh-sach-thi-sinh" className={classes.link}>
                             <Button className={classes.button}>
                                 Danh sách thí sinh
                             </Button>
-                        </Link>
+                        </a>
+                        <a href="/quan-ly-danh-sach-thi-sinh" className={classes.link}>
+                            <Button className={classes.button}>
+                                Quản lý thí sinh
+                            </Button>
+                        </a>
                     </Box>
                     <SideNavigation className={classes.menuButton} />
                 </Container>
