@@ -58,7 +58,7 @@ export default function Footer() {
                     <CardMedia
                         component="img"
                         alt="logo"
-                        image="http://hhvn.com.vn/wp-content/uploads/2020/05/Logo-HHVn2020-1024x294.png"
+                        image="https://upload.wikimedia.org/wikipedia/vi/f/f7/Logo_HHVN_2016.png"
                         className={classes.mediaLogo}
                     />
                     <Box className={classes.sponsor}>
