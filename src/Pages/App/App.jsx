@@ -4,7 +4,7 @@ import Footer from '../../Components/Footer.jsx';
 import ContestRules from '../ContestRules.jsx';
 import CandidateList from '../CandidateList.jsx';
 import CandidateForm from '../CandidateForm.jsx';
-import AllCandidates from '../CandidatesManagement.jsx'
+import CandidatesManagement from '../CandidatesManagement.jsx'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import theme from './Theme';
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -16,8 +16,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "yellow"
   },
   container: {
-    padding: '',
     margin: '100px auto 50px auto',
+    [theme.breakpoints.down("sm")]: {
+      margin: '75px 0px 0px 0px',
+      padding: "0px"
+    }
   },
 }));
 
@@ -35,7 +38,7 @@ function App() {
                 <Route exact path="/" component={ContestRules} />
                 <Route path="/dang-ky-tham-du" component={CandidateForm} />
                 <Route path="/danh-sach-thi-sinh" component={CandidateList} />
-                <Route path="/quan-ly-danh-sach-thi-sinh" component={AllCandidates} />
+                <Route path="/quan-ly-danh-sach-thi-sinh" component={CandidatesManagement} />
               </Switch>
             </Router>
           </Container>

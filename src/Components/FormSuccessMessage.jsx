@@ -10,7 +10,8 @@ import { Container } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   root: {
     color: "pink",
-    padding: theme.spacing(7)
+    padding: theme.spacing(7),
+    margin: theme.spacing(7)
   },
 }));
 

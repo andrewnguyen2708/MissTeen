@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
     display: "block",
     height: 300,
     width: 200,
+    [theme.breakpoints.down("sm")]: {
+      width: 250
+    }
   },
   details: {
     display: "block",

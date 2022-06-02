@@ -14,27 +14,41 @@ import { insertCandidate } from '../services/employeeService';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        padding: '2rem 2rem',
+        padding: '2rem 4rem',
         '& .MuiFormControl-root': {
             width: '80%',
             margin: '20px',
             [theme.breakpoints.down('sm')]: {
-                width: '90%',
+                width: '100%',
                 margin: '10px',
-                fontSize: '0.1rem'
+                marginLeft: "auto",
+                marginRight: "auto",
             }
         },
-        [theme.breakpoints.down('sm')]: {
-            flexDirection: 'column',
-        }
+    },
+    head: {
+        width: "100%",
+        marginBottom: theme.spacing(5),
+        backgroundColor: theme.palette.primary.light,
+
     },
     headTitle: {
-        textAlign: "left",
+        textAlign: "center",
+        color: theme.palette.primary.main,
+        padding: theme.spacing(3),
         fontWeight: "600",
         paddingLeft: theme.spacing(6),
         [theme.breakpoints.down('sm')]: {
-            marginLeft: -theme.spacing(1),
-            fontSize: '1.5rem'
+            marginLeft: -theme.spacing(4),
+            fontSize: '2rem'
+        }
+    },
+    content: {
+        width: "100%",
+        [theme.breakpoints.down('sm')]: {
+            flexDirection: 'column',
+            marginLeft: theme.spacing(2),
+            padding: "10px 0px"
         }
     },
     upload: {
@@ -43,7 +57,10 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         width: '80%',
         margin: '20px',
-        marginLeft: '25px'
+        marginLeft: '25px',
+        [theme.breakpoints.down('sm')]: {
+            marginLeft: "0px",
+        }
     },
     label: {
         marginBottom: theme.spacing(2),
@@ -60,6 +77,8 @@ const useStyles = makeStyles((theme) => ({
     button: {
         width: '40%',
         margin: '1rem',
+        marginLeft: "0px",
+        color: "white",
     },
     upLoadButton: {
         zIndex: '1'
@@ -138,18 +157,19 @@ export default function CandidateForm() {
 
     return (
         <Paper elevation={3} className={classes.root}>
-            <Typography
-                variant="h4"
-                gutterBottom
-                component="div"
-                align='center'
-                color = "secondary"
-                className={classes.headTitle}
-            >
-                Đăng ký dự thi hoa hậu Việt Nam 2020
-            </Typography>
-            <Form>
-                <Grid container p='3rem' className={classes.root}>
+            <Box className={classes.head}>
+                <Typography
+                    variant="h4"
+                    gutterBottom
+                    component="div"
+                    align='center'
+                    className={classes.headTitle}
+                >
+                    Đăng ký tham dự
+                </Typography>
+            </Box>
+            <Form className={classes.content}>
+                <Grid container>
                     <Grid item md={6} sm={12} className={classes.item}>
                         <Controls.Input
                             rule={rules.fullName}
@@ -252,7 +272,7 @@ export default function CandidateForm() {
                                 style={{
                                     position: 'absolute',
                                     top: "42px",
-                                    left: '34px',
+                                    left: '31px',
                                     fontSize: "1rem"
                                 }}
                                 onClick={handleUploadFile}

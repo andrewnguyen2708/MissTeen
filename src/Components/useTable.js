@@ -3,7 +3,11 @@ import { Table, TableCell, TableHead, TableRow, TablePagination, TableSortLabel 
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
+    root: {
+        overflowX: "auto"
+    },
     table: {
+        minWidth: 1000,
         marginTop: theme.spacing(3),
         '& thead th': {
             fontWeight: '600',
@@ -30,9 +34,11 @@ export default function useTable(records, headCells, filterFn) {
 
     const TblContainer = ({ children }) => {
         return (
-            <Table className={classes.table}>
-                {children}
-            </Table>
+            <div className={classes.root}>
+                <Table className={classes.table}>
+                    {children}
+                </Table>
+            </div>
         )
     }
 
@@ -45,11 +51,11 @@ export default function useTable(records, headCells, filterFn) {
         }
 
         return (
-            <TableHead align="center">
+            <TableHead>
                 <TableRow>
                     {
                         headCells.map(headCell => (
-                            <TableCell key={headCell.id}
+                            <TableCell align="center" key={headCell.id}
                                 sortDirection={orderBy === headCell.id ? order : false}>
                                 {headCell.disableSorting ? headCell.label :
                                     <TableSortLabel

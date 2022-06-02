@@ -14,13 +14,15 @@ const useStyles = makeStyles((theme) => ({
         border: "2px solid #FA8072"
     },
     content: {
-        width: '60%',
+        width: '90%',
+        align: "center",
         display: 'flex',
         justifyContent: 'space-between',
     },
     media: {
         height: 300,
     },
+   
 }));
 
 export default function Candidate({ item, image, name, age, height, weight }) {
@@ -45,23 +47,38 @@ export default function Candidate({ item, image, name, age, height, weight }) {
                         {name}
                     </Typography>
                     <Box className={classes.content}>
-                        <Typography variant="body2" color="textSecondary" component="h5">
-                            {age}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" component="h5">
-                            {height}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" component="h5">
-                            {weight}
-                        </Typography>
+                        <Box>
+                            <Typography align="center" variant="body2" color="textSecondary" component="h5">
+                                Tuổi
+                            </Typography>
+                            <Typography align="center" variant="body2" color="textSecondary" component="h5">
+                                {age}
+                            </Typography>
+                        </Box>
+                        <Box>
+                            <Typography align="center" variant="body2" color="textSecondary" component="h5">
+                                Chiều cao
+                            </Typography>
+                            <Typography align="center" variant="body2" color="textSecondary" component="h5">
+                                {height}
+                            </Typography>
+                        </Box>
+                        <Box>
+                            <Typography align="center" variant="body2" color="textSecondary" component="h5">
+                                Cân nặng
+                            </Typography>
+                            <Typography align="center" variant="body2" color="textSecondary" component="h5">
+                                {weight}
+                            </Typography>
+                        </Box>
                     </Box>
                 </CardContent>
             </CardActionArea>
-                <CandidatePopup 
-                open={open} 
+            <CandidatePopup
+                open={open}
                 setOpen={setOpen}
-                item={item} 
-                />
+                item={item}
+            />
         </Card>
     );
 }

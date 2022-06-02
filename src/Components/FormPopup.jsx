@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { insertCandidate } from '../services/employeeService';
+import React, { useEffect } from 'react';
 import { useForm, Form } from '../Components/UseForm';
 import { makeStyles } from '@material-ui/core/styles';
 import { Dialog, IconButton } from '@material-ui/core';
@@ -12,7 +11,6 @@ import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Box from '@material-ui/core/Box';
 import { TextField } from '@material-ui/core';
-import CandidateList from '../Pages/CandidateList';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -29,6 +27,8 @@ const useStyles = makeStyles((theme) => ({
         },
         [theme.breakpoints.down('sm')]: {
             flexDirection: 'column',
+            padding: theme.spacing(1),
+            paddingTop: theme.spacing(7)
         }
     },
     headTitle: {
@@ -36,8 +36,8 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: "600",
         paddingLeft: theme.spacing(6),
         [theme.breakpoints.down('sm')]: {
-            marginLeft: -theme.spacing(1),
-            fontSize: '1.5rem'
+            marginLeft: -theme.spacing(4),
+            fontSize: "1.3rem"
         }
     },
     upload: {
@@ -121,7 +121,6 @@ export default function FormPopup({ open, setOpen, records, recordForEdit }) {
       <Paper elevation={3} className={classes.root}>
             <Typography
                 variant="h4"
-                gutterBottom
                 component="div"
                 align='center'
                 color = "secondary"
@@ -223,7 +222,7 @@ export default function FormPopup({ open, setOpen, records, recordForEdit }) {
                                 style={{
                                     position: 'absolute',
                                     top: "42px",
-                                    left: '34px',
+                                    left: '31px',
                                     fontSize: "1rem"
                                 }}
                                 onClick={handleUploadFile}

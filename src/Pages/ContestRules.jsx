@@ -8,6 +8,9 @@ import CardMedia from '@material-ui/core/CardMedia';
 const useStyles = makeStyles((theme) => ({
     root: {
       padding: '2rem',
+      [theme.breakpoints.down("sm")]: {
+          padding: theme.spacing(3)
+      }
     },
   }));
 
@@ -16,7 +19,6 @@ export default function ContestRules() {
     const classes = useStyles();
     
     return (
-        <Container >
             <Paper elevation={5} >
                 <CardMedia
                     component="img"
@@ -88,10 +90,9 @@ export default function ContestRules() {
                         <li>Chứng nhận danh hiệu Hoa hậu, Á hậu, Hoa khôi, Á khôi tại các cuộc thi sắc đẹp cấp tỉnh, thành, ngành diễn ra trong năm 2019 hoặc 2020 mà thí sinh đã đoạt giải...(bản sao có công chứng.)</li>
                     </ul>
                     <p>Lưu ý: Hồ sơ nếu gửi qua đường bưu điện, phong bì phải dán tem và đề rõ “Hồ sơ đăng ký dự thi Hoa hậu Việt Nam 2020”.</p>
-                    <p>Chi tiết về cuộc thi sẽ được cập nhật liên tục trên trang: <a href='https://www.tienphong.vn/'>https://www.tienphong.vn/</a> và fanpage: <a href='https://www.facebook.com/MissVietnam.TP/'>https://www.facebook.com/MissVietnam.TP/</a></p>
+                    <p>Chi tiết về cuộc thi sẽ được cập nhật liên tục trên trang: <span><a href='https://www.tienphong.vn/'>https://www.tienphong.vn/</a></span> và fanpage: <span><a href='https://www.facebook.com/MissVietnam.TP/'>https://www.facebook.com/MissVietnam.TP/</a></span></p>
                 </Container>
             </Paper>
-        </Container>
     )
 }
 

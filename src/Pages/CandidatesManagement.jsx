@@ -14,24 +14,31 @@ import CandidatePopup from "../Components/CandidatePopup";
 
 const useStyles = makeStyles(theme => ({
   pageContent: {
-    margin: theme.spacing(5),
+    display: "block",
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
     paddingLeft: theme.spacing(8),
     paddingRight: theme.spacing(8),
+    [theme.breakpoints.down("sm")]: {
+      padding: theme.spacing(3)
+    }
   },
   headTitle: {
     textAlign: "left",
     fontWeight: "600",
     paddingBottom: theme.spacing(3),
     [theme.breakpoints.down('sm')]: {
-      marginLeft: theme.spacing(5),
+      marginLeft: theme.spacing(0),
       fontSize: '1.5rem'
     }
   },
   searchInput: {
     width: '75%',
     marginLeft: -theme.spacing(3)
+  },
+  table: {
+    width: "80%",
+
   }
 }))
 
@@ -52,7 +59,6 @@ export default function CandidatesManagement() {
   const [view, setView] = useState(false)
   const [recordForEdit, setRecordForEdit] = useState({});
   const [filterFn, setFilterFn] = useState({ fn: items => { return items; } })
-  console.log(records);
 
   const {
     TblContainer,
@@ -118,7 +124,7 @@ export default function CandidatesManagement() {
         align='right'
       >Tổng số: {records.length}
       </Typography>
-      <TblContainer>
+      <TblContainer className={classes.table}>
         <TblHead />
         <TableBody>
           {
