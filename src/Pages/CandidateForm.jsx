@@ -55,6 +55,9 @@ const useStyles = makeStyles((theme) => ({
             padding: "10px 0px"
         }
     },
+    item2:{
+        marginTop: theme.spacing(1),
+    },
     upload: {
         position: 'relative',
         display: 'flex',
@@ -192,39 +195,39 @@ export default function CandidateForm() {
                         />
                         <Controls.Input
                             rule={rules.email}
-                            label='Địa chỉ email'
+                            label='Địa chỉ email*'
                             name='email'
                             value={values.email}
                             onChange={handleTextChange}
                         />
                         <Controls.Input
                             rule={rules.address}
-                            label='Địa chỉ liên hệ'
+                            label='Địa chỉ liên hệ*'
                             name='address'
                             value={values.address}
                             onChange={handleTextChange}
                         />
                         <Controls.Input
                             rule={rules.profession}
-                            label='Nghề nghiệp'
+                            label='Nghề nghiệp*'
                             name='profession'
                             value={values.profession}
                             onChange={handleTextChange}
                         />
                         <Controls.Input
                             rule={rules.national}
-                            label='Quốc tịch'
+                            label='Quốc tịch*'
                             name='national'
                             value={values.national}
                             onChange={handleTextChange}
                         />
                     </Grid>
-                    <Grid item md={6} sm={12}>
+                    <Grid item md={6} sm={12} className={classes.item2}>
                         <TextField
                             rule={rules.dateOfBirth}
                             color="secondary"
                             id="date"
-                            label="Ngày sinh"
+                            label="Ngày sinh*"
                             type="date"
                             InputLabelProps={{
                                 shrink: true,
@@ -235,21 +238,21 @@ export default function CandidateForm() {
                         />
                         <Controls.Input
                             rule={rules.height}
-                            label='Chiều cao'
+                            label='Chiều cao*'
                             name='height'
                             value={values.height}
                             onChange={handleTextChange}
                         />
                         <Controls.Input
                             rule={rules.weight}
-                            label='Cân nặng'
+                            label='Cân nặng*'
                             name='weight'
                             value={values.weight}
                             onChange={handleTextChange}
                         />
                         <Controls.Input
                             rule={rules.education}
-                            label='Trình độ học vấn'
+                            label='Trình độ học vấn*'
                             name='education'
                             value={values.education}
                             onChange={handleTextChange}

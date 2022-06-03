@@ -7,7 +7,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      padding: '2rem',
+      padding: '4rem',
+      paddingTop: '2rem',
       [theme.breakpoints.down("sm")]: {
           padding: theme.spacing(3)
       }
