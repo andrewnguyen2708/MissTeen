@@ -15,8 +15,11 @@ import { insertCandidate } from '../services/employeeService';
 const useStyles = makeStyles((theme) => ({
     root: {
         padding: '2rem 4rem',
+        [theme.breakpoints.down('sm')]: {
+            padding: "1.5rem"
+        },
         '& .MuiFormControl-root': {
-            width: '80%',
+            width: '90%',
             margin: '20px',
             [theme.breakpoints.down('sm')]: {
                 width: '100%',
@@ -40,11 +43,12 @@ const useStyles = makeStyles((theme) => ({
         paddingLeft: theme.spacing(6),
         [theme.breakpoints.down('sm')]: {
             marginLeft: -theme.spacing(4),
-            fontSize: '2rem'
+            fontSize: '1.5rem'
         }
     },
     content: {
         width: "100%",
+        marginLeft: theme.spacing(5),
         [theme.breakpoints.down('sm')]: {
             flexDirection: 'column',
             marginLeft: theme.spacing(2),
@@ -110,6 +114,7 @@ export default function CandidateForm() {
         handleTextChange
     }
         = useForm(initialValues)
+
     const rules = {};
     rules.fullName = values.fullName.trim() ? "" : "Vui lòng nhập trường này";
     rules.address = values.address.trim() ? "" : "Vui lòng nhập trường này";
@@ -221,7 +226,6 @@ export default function CandidateForm() {
                             id="date"
                             label="Ngày sinh"
                             type="date"
-                            defaultValue="2022-05-25"
                             InputLabelProps={{
                                 shrink: true,
                             }}
@@ -255,7 +259,6 @@ export default function CandidateForm() {
                             <label htmlFor="portrait-image">
                                 <Button
                                     variant="contained"
-                                    color="blue"
                                     component="span"
                                     className={classes.upLoadButton}
                                 >

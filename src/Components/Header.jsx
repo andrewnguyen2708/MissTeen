@@ -2,11 +2,8 @@ import React from 'react'
 import AppBar from '@material-ui/core/AppBar';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import CardMedia from '@material-ui/core/CardMedia';
 import { makeStyles } from '@material-ui/core/styles';
-import { BrowserRouter as Router } from "react-router-dom";
-import SideNavigation from './SideNavigation';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -14,78 +11,35 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.primary,
         color: '#fff',
     },
-    navigation: {
-        display: 'flex',
-        color: 'white'
-    },
     container: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
     },
-    menu: {
-        display: 'flex',
-        width: '60%',
-        justifyContent: 'space-around',
-        [theme.breakpoints.down('md')]: {
-            display: 'none'
-        }
-    },
     media: {
         width: '3rem',
         padding: '0.5rem'
-    },
-    link: {
-        textDecoration: 'none'
-    },
-    button: {
-        color: '#fff',
     }
 }));
 
 
-export default function Header() {
+export default function Header({ children }) {
 
     const classes = useStyles();
 
     return (
-        <Router>
-            <AppBar position='fixed' className={classes.root}>
-                <Container width='100%' className={classes.container}>
-                    <Box className={classes.navigation}>
-                        <CardMedia
-                            component="img"
-                            alt="logo"
-                            image="https://upload.wikimedia.org/wikipedia/vi/9/97/Missearth-logo.png"
-                            className={classes.media}
-                        />
-                    </Box>
-                    <Box className={classes.menu}>
-                        
-                        <a href="/" className={classes.link}>
-                            <Button className={classes.button}>
-                                Thể lệ cuộc thi
-                            </Button>
-                        </a>
-                        <a href="/dang-ky-tham-du" className={classes.link}>
-                            <Button className={classes.button}>
-                                Đăng ký tham dự
-                            </Button>
-                        </a>
-                        <a href="/danh-sach-thi-sinh" className={classes.link}>
-                            <Button className={classes.button}>
-                                Danh sách thí sinh
-                            </Button>
-                        </a>
-                        <a href="/quan-ly-danh-sach-thi-sinh" className={classes.link}>
-                            <Button className={classes.button}>
-                                Quản lý thí sinh
-                            </Button>
-                        </a>
-                    </Box>
-                    <SideNavigation className={classes.menuButton} />
-                </Container>
-            </AppBar>
-        </Router>
+        <AppBar position='fixed' className={classes.root}>
+            <Container width='100%' className={classes.container}>
+                <Box className={classes.navigation}>
+                    <CardMedia
+                        component="img"
+                        alt="logo"
+                        image="https://upload.wikimedia.org/wikipedia/vi/9/97/Missearth-logo.png"
+                        className={classes.media}
+                    />
+                </Box>
+                {children}
+            </Container>
+        </AppBar>
     )
 }

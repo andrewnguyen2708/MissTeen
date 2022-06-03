@@ -26,7 +26,7 @@ export default function ContestRules() {
                     image="https://photo-cms-tpo.zadn.vn/w890/Uploaded/2022/jaetgs/2020_05_27/ava_GTVQ.jpg"
                 />
                 <Container className={classes.root}>
-                <Typography variant="h5" gutterBottom component="div">Thể lệ cuộc thi </Typography>
+                <Typography variant="h4" fontWeight="700" gutterBottom component="div">Thể lệ cuộc thi </Typography>
                     <Typography variant="h6" gutterBottom component="h6">1.    Đối tượng tham gia cuộc thi </Typography>
                     <p>Nữ công dân Việt Nam tuổi từ 16 đến 25 (tính theo năm sinh ghi trong giấy khai sinh).</p>
                     <Typography variant="h6" gutterBottom component="h6">2.    Điều kiện dự thi</Typography>

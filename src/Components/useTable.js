@@ -72,7 +72,7 @@ export default function useTable(records, headCells, filterFn) {
         )
     }
 
-    const handleChangePage = (event, newPage) => {
+    const handleChangePage = ( newPage ) => {
         setPage(newPage)
     }
 

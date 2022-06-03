@@ -8,25 +8,25 @@ export default function Input({ label, name, value, onChange, rule, ...other }) 
         rule
             ? setErrors({ error: true, helperText: rule })
             : setErrors({ error: false, helperText: "" });
-}
+    }
 
-const handleInput = () => {
-    value.trim() && setErrors({ error: false, helperText: "" });
-}
+    const handleInput = () => {
+        value.trim() && setErrors({ error: false, helperText: "" });
+    }
 
-return (
-    <TextField
-    color="secondary"
-        error={errors.error}
-        helperText={errors.helperText}
-        variant='outlined'
-        label={label}
-        name={name}
-        value={value}
-        onChange={onChange}
-        onBlur={handleBlur}
-        onInput={handleInput}
-        {...other}
-    />
-)
+    return (
+        <TextField
+            color="secondary"
+            error={errors.error}
+            helperText={errors.helperText}
+            variant='outlined'
+            label={label}
+            name={name}
+            value={value}
+            onChange={onChange}
+            onBlur={handleBlur}
+            onInput={handleInput}
+            {...other}
+        />
+    )
 }

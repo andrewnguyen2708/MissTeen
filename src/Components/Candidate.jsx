@@ -25,14 +25,13 @@ const useStyles = makeStyles((theme) => ({
    
 }));
 
-export default function Candidate({ item, image, name, age, height, weight }) {
+export default function Candidate({ item, image, name, dateOfBirth, height, weight }) {
 
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const handleClickOpen = () => {
         setOpen(true);
     };
-    console.log(image)
 
     return (
         <Card className={classes.root}>
@@ -49,10 +48,10 @@ export default function Candidate({ item, image, name, age, height, weight }) {
                     <Box className={classes.content}>
                         <Box>
                             <Typography align="center" variant="body2" color="textSecondary" component="h5">
-                                Tuổi
+                                Năm sinh
                             </Typography>
                             <Typography align="center" variant="body2" color="textSecondary" component="h5">
-                                {age}
+                                {dateOfBirth}
                             </Typography>
                         </Box>
                         <Box>

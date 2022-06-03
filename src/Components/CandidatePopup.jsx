@@ -67,7 +67,7 @@ export default function CandidatePopup(props) {
           <DialogTitle id="candidate-title">Thông tin thí sinh</DialogTitle>
         </Box>
         <DialogContent className={classes.content}>
-          <Grid container xs={12}>
+          <Grid container>
             <Grid item sm={4} xs={12} >
               <CardMedia
                 className={classes.media}

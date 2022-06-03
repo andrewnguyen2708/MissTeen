@@ -25,8 +25,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(3),
         fontWeight: "600",
         [theme.breakpoints.down('sm')]: {
-            marginLeft: -theme.spacing(4),
-            fontSize: '2rem'
+            fontSize: '1.4rem'
         }
     },
     gridContainer: {
@@ -50,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CandidateList() {
     const CandidateList = getAllCandidate();
-    console.log(CandidateList);
 
     const classes = useStyles();
 
@@ -69,12 +67,12 @@ export default function CandidateList() {
             <Grid container className={classes.gridContainer}>
                 {
                     CandidateList.map(item =>
-                        <Grid Grid item lg={3} sm={5} xs={12} className={classes.card} key={item.id}>
+                        <Grid item lg={3} sm={5} xs={12} className={classes.card} key={item.id}>
                             <Candidate
                                 item={item}
                                 image={item.file}
                                 name={item.fullName}
-                                age={(2022 - item.dateOfBirth.slice(0, 4)) + " tuổi"}
+                                dateOfBirth={(item.dateOfBirth.slice(0, 4))}
                                 height={item.height}
                                 weight={item.weight}
                                 national={item.national}

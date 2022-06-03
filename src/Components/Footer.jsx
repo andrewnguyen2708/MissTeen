@@ -23,6 +23,11 @@ const useStyles = makeStyles((theme) => ({
             display: 'none'
         }
     },
+    title: {
+        fontFamily: 'Oswald',
+        fontWeight: 400,
+        fontSize: "1.5rem"
+    },
     footerRight: {
         padding: '1rem',
     },
@@ -55,12 +60,7 @@ export default function Footer() {
         <footer className={classes.root}>
             <Container maxWidth="xl" className={classes.container}>
                 <Box className={classes.footerLeft}>
-                    <CardMedia
-                        component="img"
-                        alt="logo"
-                        image="https://upload.wikimedia.org/wikipedia/vi/f/f7/Logo_HHVN_2016.png"
-                        className={classes.mediaLogo}
-                    />
+                    <Typography className={classes.title}>HOA HẬU VIỆT NAM</Typography>
                     <Box className={classes.sponsor}>
                         <Typography>Nhà Tài trợ:    </Typography>
                         <CardMedia

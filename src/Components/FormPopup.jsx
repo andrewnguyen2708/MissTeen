@@ -205,7 +205,6 @@ export default function FormPopup({ open, setOpen, records, recordForEdit }) {
                             <label htmlFor="portrait-image">
                                 <Button
                                     variant="contained"
-                                    color="blue"
                                     component="span"
                                     className={classes.upLoadButton}
                                 >
