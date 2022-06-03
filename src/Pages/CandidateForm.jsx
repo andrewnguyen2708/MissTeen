@@ -178,14 +178,14 @@ export default function CandidateForm() {
                     <Grid item md={6} sm={12} className={classes.item}>
                         <Controls.Input
                             rule={rules.fullName}
-                            label='Họ và Tên'
+                            label='Họ và Tên*'
                             name='fullName'
                             value={values.fullName}
                             onChange={handleTextChange}
                         />
                         <Controls.Input
                             rule={rules.phone}
-                            label='Số điện thoại'
+                            label='Số điện thoại*'
                             name='phone'
                             value={values.phone}
                             onChange={handleTextChange}
