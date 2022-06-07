@@ -17,8 +17,8 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
     },
     media: {
-        width: '3rem',
-        padding: '0.5rem'
+        width: '12rem',
+        padding: '1rem'
     }
 }));
 
@@ -34,7 +34,7 @@ export default function Header({ children }) {
                     <CardMedia
                         component="img"
                         alt="logo"
-                        image="https://upload.wikimedia.org/wikipedia/vi/9/97/Missearth-logo.png"
+                        image="https://o.remove.bg/downloads/8c9810e7-6e30-4900-bff8-eca527877098/logo-removebg-preview.png"
                         className={classes.media}
                     />
                 </Box>

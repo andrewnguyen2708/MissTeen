@@ -63,13 +63,12 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     upload: {
-        position: 'relative',
         display: 'flex',
-        flexDirection: 'column',
         width: '80%',
         marginBottom: theme.spacing(3),
         [theme.breakpoints.down('sm')]: {
             marginLeft: "0px",
+            marginTop: theme.spacing(4)
         }
     },
     label: {
@@ -113,7 +112,6 @@ const initialValues = {
 export default function CandidateForm() {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
-    const [uploadOpen, setUploadOpen] = useState(false);
     const {
         values,
         setValues,
@@ -158,10 +156,6 @@ export default function CandidateForm() {
 
     const handleClose = (value) => {
         setOpen(false);
-    };
-
-    const handleUploadClose = (value) => {
-        setUploadOpen(false);
     };
 
     const handleReset = () => {
@@ -272,13 +266,13 @@ export default function CandidateForm() {
                         />
                     </Grid>
                     <Box className={classes.upload}>
+                        <div>
                         <Typography style={{ marginBottom: '10px' }}>Ảnh chân dung 3x4:</Typography>
                         <label htmlFor="portrait-image">
                             <Button
                                 variant="contained"
                                 component="span"
                                 className={classes.upLoadButton}
-                                onClick={handleUploadFile}
                             >
                                 <CloudUploadIcon />
                                 <span> Tải ảnh lên</span>
@@ -288,16 +282,14 @@ export default function CandidateForm() {
                                     id="portrait-image"
                                     hidden
                                     type="file"
-                                    style={{
-                                        position: 'absolute',
-                                        top: "42px",
-                                        left: '31px',
-                                        fontSize: "1rem"
-                                    }}
+                                    onChange={handleUploadFile}
                                 />
                             </Button>
                         </label>
-                        <img src={values.file}/>
+                        </div>
+                        <div>
+                        <img style={{ width: "70px", marginLeft: "20px", marginTop: "-20px" }} src={values.file} />
+                        </div>
                     </Box>
                     <Box className={classes.buttonGroup}>
                         <Button

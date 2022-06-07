@@ -29,13 +29,11 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     gridContainer: {
-        display: "flex",
-        alignItem: "center"
     },
     card: {
         [theme.breakpoints.down('sm')]: {
             marginBottom: '2rem',
-            alignSelf: "center"
+            marginLeft: theme.spacing(4)
         }
     }
 }));
@@ -61,7 +59,7 @@ export default function CandidateList() {
             <Grid container className={classes.gridContainer} spacing={3}>
                 {
                     CandidateList.map(item =>
-                        <Grid item lg={3} sm={6} xs={7} className={classes.card} key={item.id}>
+                        <Grid item lg={3} sm={6} xs={12} className={classes.card} key={item.id}>
                             <Candidate
                                 item={item}
                                 image={item.file}
