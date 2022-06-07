@@ -11,10 +11,10 @@ import CandidatePopup from './CandidatePopup';
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 300,
-        border: "2px solid #FA8072"
+        border: "2px solid #088FFA"
     },
     content: {
-        width: '90%',
+        width: '100%',
         align: "center",
         display: 'flex',
         justifyContent: 'space-between',
@@ -42,7 +42,7 @@ export default function Candidate({ item, image, name, dateOfBirth, height, weig
                     title="Ảnh chân dung"
                 />
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <Typography gutterBottom variant="h5" component="h2" align="center">
                         {name}
                     </Typography>
                     <Box className={classes.content}>

@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         alignItem: 'center',
-        padding: '2rem 4rem',
+        padding: '4rem 4rem',
         [theme.breakpoints.down('sm')]: {
             padding: "20px 15px",
         }
@@ -29,19 +29,13 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     gridContainer: {
-        paddingTop: '1rem',
-        display: 'flex',
-        justifyContent: 'space-between',
-        [theme.breakpoints.down('sm')]: {
-            paddingLeft: theme.spacing(3)
-        }
+        display: "flex",
+        alignItem: "center"
     },
     card: {
-        marginRight: '0.5rem',
-        marginBottom: '2rem',
         [theme.breakpoints.down('sm')]: {
-            margin: "auto",
             marginBottom: '2rem',
+            alignSelf: "center"
         }
     }
 }));
@@ -64,10 +58,10 @@ export default function CandidateList() {
                     Danh sách thí sinh tham dự
                 </Typography>
             </Box>
-            <Grid container className={classes.gridContainer}>
+            <Grid container className={classes.gridContainer} spacing={3}>
                 {
                     CandidateList.map(item =>
-                        <Grid item lg={3} sm={5} xs={12} className={classes.card} key={item.id}>
+                        <Grid item lg={3} sm={6} xs={7} className={classes.card} key={item.id}>
                             <Candidate
                                 item={item}
                                 image={item.file}

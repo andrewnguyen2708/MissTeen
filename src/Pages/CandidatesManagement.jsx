@@ -13,12 +13,9 @@ import FormPopup from '../Components/FormPopup';
 import CandidatePopup from "../Components/CandidatePopup";
 
 const useStyles = makeStyles(theme => ({
-  pageContent: {
+  root: {
     display: "block",
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-    paddingLeft: theme.spacing(8),
-    paddingRight: theme.spacing(8),
+    padding: "4rem",
     [theme.breakpoints.down("sm")]: {
       padding: theme.spacing(3)
     }
@@ -34,26 +31,32 @@ const useStyles = makeStyles(theme => ({
   },
   searchInput: {
     width: '75%',
-    marginLeft: -theme.spacing(3)
+    marginLeft: -theme.spacing(3),
+    [theme.breakpoints.down("sm")]: {
+      width: "150%",
+      marginBottom: theme.spacing(3)
+  }
   },
   table: {
     width: "80%",
-
+  },
+  data: {
+    paddingRight: theme.spacing(5)
   }
 }))
 
 const headCells = [
   { id: "id", label: "Số báo danh" },
-  { id: "fullNamw", label: "Họ và tên" },
+  { id: "fullName", label: "Họ và tên" },
   { id: "dateOfBirth", label: "Năm sinh" },
   { id: "height", label: "Chiều cao" },
   { id: "weight", label: "Cân nặng" },
   { id: "national", label: "Quốc tịch" },
-  { id: "action", label: "Thao tác" },
 ]
 
 export default function CandidatesManagement() {
   const classes = useStyles();
+  let num = 1;
   const [records, setRecords] = useState(getAllCandidate());
   const [open, setOpen] = useState(false)
   const [view, setView] = useState(false)
@@ -61,6 +64,7 @@ export default function CandidatesManagement() {
   const [filterFn, setFilterFn] = useState({ fn: items => { return items; } })
 
   const {
+    page,
     TblContainer,
     TblHead,
     TblPagination,
@@ -94,7 +98,7 @@ export default function CandidatesManagement() {
   }
 
   return (
-    <Paper elevation={3} className={classes.pageContent}>
+    <Paper elevation={3} className={classes.root}>
       <Typography
         variant="h4"
         gutterBottom
@@ -130,13 +134,14 @@ export default function CandidatesManagement() {
           {
             recordsAfterPagingAndSorting().map(item => (
               <TableRow key={item.id}>
-                <TableCell align='center'>{item.id < 10 ? 0 + item.id : item.id}</TableCell>
-                <TableCell align='center'>{item.fullName}</TableCell>
-                <TableCell align='center'>{item.dateOfBirth.slice(0, 4)}</TableCell>
-                <TableCell align='center'>{item.height}</TableCell>
-                <TableCell align='center'>{item.weight}</TableCell>
-                <TableCell align='center'>{item.national}</TableCell>
-                <TableCell align='center'>
+                <TableCell align="center">{page*5 + num++}</TableCell>
+                <TableCell align="center" className={classes.data}>{item.id < 10 ? "0" + item.id : item.id}</TableCell>
+                <TableCell align="center" className={classes.data}>{item.fullName}</TableCell>
+                <TableCell align="center" className={classes.data}>{item.dateOfBirth.slice(0, 4)}</TableCell>
+                <TableCell align="center" className={classes.data}>{item.height}</TableCell>
+                <TableCell align="center" className={classes.data}>{item.weight}</TableCell>
+                <TableCell align="center" className={classes.data}>{item.national}</TableCell>
+                <TableCell align="center">
                   <IconButton onClick={() => handleClickView(item)}>
                     <VisibilityIcon />
                   </IconButton>

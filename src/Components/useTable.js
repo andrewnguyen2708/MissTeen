@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Table, TableCell, TableHead, TableRow, TablePagination, TableSortLabel } from '@material-ui/core'
+import { Table, TableCell, TableHead, TableRow, TablePagination, TableSortLabel, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -53,9 +53,14 @@ export default function useTable(records, headCells, filterFn) {
         return (
             <TableHead>
                 <TableRow>
+                    <TableCell>
+                        STT
+                    </TableCell>
                     {
                         headCells.map(headCell => (
-                            <TableCell align="center" key={headCell.id}
+                            <TableCell
+                                align="center"
+                                key={headCell.id}
                                 sortDirection={orderBy === headCell.id ? order : false}>
                                 {headCell.disableSorting ? headCell.label :
                                     <TableSortLabel
@@ -67,12 +72,15 @@ export default function useTable(records, headCells, filterFn) {
                                 }
                             </TableCell>))
                     }
+                    <TableCell align="center">
+                        Thao tác
+                    </TableCell>
                 </TableRow>
             </TableHead>
         )
     }
 
-    const handleChangePage = ( event, newPage ) => {
+    const handleChangePage = (event, newPage) => {
         setPage(newPage)
     }
 
@@ -90,7 +98,7 @@ export default function useTable(records, headCells, filterFn) {
             count={records.length}
             onChangePage={handleChangePage}
             onChangeRowsPerPage={hangdleChangeRowsPerPage}
-            labelRowsPerPage="số dòng"
+            labelRowsPerPage="số dòng trên trang"
         />
     )
 
@@ -127,6 +135,7 @@ export default function useTable(records, headCells, filterFn) {
 
 
     return ({
+        page,
         TblContainer,
         TblHead,
         TblPagination,

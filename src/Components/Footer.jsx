@@ -13,20 +13,23 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'space-around',
         alignItems: 'center',
-        color: 'white'
+        color: 'white',
+        [theme.breakpoints.down("sm")]: {
+            justifyContent: "space-between"
+        }
     },
     footerLeft: {
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
-        [theme.breakpoints.down('sm')]: {
-            display: 'none'
-        }
+        alignItems: 'start',
     },
     title: {
         fontFamily: 'Oswald',
         fontWeight: 400,
-        fontSize: "1.5rem"
+        fontSize: "1.5rem",
+        [theme.breakpoints.down("sm")]: {
+            display: "none",
+        }
     },
     footerRight: {
         padding: '1rem',
@@ -37,7 +40,10 @@ const useStyles = makeStyles((theme) => ({
     },
     sponsor: {
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        [theme.breakpoints.down("sm")]: {
+            flexDirection: "column",
+        }
     },
     mediaSponsor: {
         width: "8rem",

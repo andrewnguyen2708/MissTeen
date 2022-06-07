@@ -16,6 +16,7 @@ export default function Input({ label, name, value, onChange, rule, ...other }) 
 
     return (
         <TextField
+            required
             color="secondary"
             error={errors.error}
             helperText={errors.helperText}
