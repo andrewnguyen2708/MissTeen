@@ -24,7 +24,7 @@ export default function ContestRules() {
                 <CardMedia
                     component="img"
                     alt="cover"
-                    image="https://photo-cms-tpo.zadn.vn/w890/Uploaded/2022/jaetgs/2020_05_27/ava_GTVQ.jpg"
+                    image={require("../images/constestBanner.jpg")}
                 />
                 <Container className={classes.root}>
                 <Typography variant="h4" fontWeight="700" gutterBottom component="div">Thể lệ cuộc thi </Typography>

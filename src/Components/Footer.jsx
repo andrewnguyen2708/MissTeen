@@ -72,7 +72,7 @@ export default function Footer() {
                         <CardMedia
                             component="img"
                             alt="logo"
-                            image="https://assets.topdev.vn/images/2022/03/08/TopDev-hahalolo-logo-1646710802.png"
+                            image={require("../images/sponsorLogo.png")}
                             className={classes.mediaSponsor}
                         />
                     </Box>

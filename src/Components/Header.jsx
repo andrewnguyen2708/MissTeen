@@ -34,7 +34,7 @@ export default function Header({ children }) {
                     <CardMedia
                         component="img"
                         alt="logo"
-                        image="https://o.remove.bg/downloads/8c9810e7-6e30-4900-bff8-eca527877098/logo-removebg-preview.png"
+                        image={require("../images/logo.png")}
                         className={classes.media}
                     />
                 </Box>

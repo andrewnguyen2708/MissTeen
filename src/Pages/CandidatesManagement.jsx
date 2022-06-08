@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import useTable from '../Components/useTable'
-import Controls from "../Components/Controls/Controls";
 import { getAllCandidate } from '../services/employeeService';
-import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment } from '@material-ui/core';
+import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment, TextField } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
@@ -35,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down("sm")]: {
       width: "150%",
       marginBottom: theme.spacing(3)
-  }
+    }
   },
   table: {
     width: "80%",
@@ -110,13 +109,16 @@ export default function CandidatesManagement() {
         Quản lý danh sách thí sinh
       </Typography>
       <Toolbar>
-        <Controls.Input
+        <TextField
+          variant='outlined'
+          color="secondary"
           label="Tìm kiếm thí sinh"
           className={classes.searchInput}
           InputProps={{
-            startAdornment: (<InputAdornment position="start">
-              <Search />
-            </InputAdornment>)
+            startAdornment: (
+              <InputAdornment position="start">
+                <Search />
+              </InputAdornment>)
           }}
           onChange={handleSearch}
         />
@@ -134,7 +136,7 @@ export default function CandidatesManagement() {
           {
             recordsAfterPagingAndSorting().map(item => (
               <TableRow key={item.id}>
-                <TableCell align="center">{page*5 + num++}</TableCell>
+                <TableCell align="center">{page * 5 + num++}</TableCell>
                 <TableCell align="center" className={classes.data}>{item.id < 10 ? "0" + item.id : item.id}</TableCell>
                 <TableCell align="center" className={classes.data}>{item.fullName}</TableCell>
                 <TableCell align="center" className={classes.data}>{item.dateOfBirth.slice(0, 4)}</TableCell>

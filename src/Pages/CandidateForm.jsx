@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import FormSuccessMessage from '../Components/FormSuccessMessage';
-import { useForm, Form } from '../Components/UseForm';
-import Controls from '../Components/Controls/Controls';
+import { useForm } from 'react-hook-form';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -47,8 +46,7 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     content: {
-        width: "100%",
-        paddingTop: "2rem",
+        width: "100%"
     },
     gridContainer: {
         gridGap: theme.spacing(2)
@@ -84,82 +82,63 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         width: '40%',
-        margin: '1rem',
-        marginLeft: "0px",
+        marginRight: theme.spacing(4),
         color: "white",
     },
-    upLoadButton: {
-        zIndex: '1'
-    }
 }));
-
-const initialValues = {
-    id: "0",
-    fullName: "",
-    phone: "",
-    email: "",
-    address: "",
-    profession: "",
-    national: "",
-    height: "",
-    weight: "",
-    dateOfBirth: "",
-    education: "",
-    file: null
-}
 
 
 export default function CandidateForm() {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
+
     const {
-        values,
-        setValues,
-        handleTextChange
+        register,
+        handleSubmit,
+        watch,
+        reset,
+        setValue,
+        formState: { errors }
     }
-        = useForm(initialValues)
+        = useForm({
+            defaultValues: {
+                id: "0",
+                fullName: "",
+                phone: "",
+                email: "",
+                address: "",
+                profession: "",
+                national: "",
+                height: "",
+                weight: "",
+                dateOfBirth: "",
+                education: "",
+                file: null
+            }
+        });
 
-    const rules = {};
-    rules.fullName = values.fullName.trim() ? "" : "Vui lòng nhập trường này";
-    rules.address = values.address.trim() ? "" : "Vui lòng nhập trường này";
-    rules.profession = values.profession.trim() ? "" : "Vui lòng nhập trường này";
-    rules.national = values.national.trim() ? "" : "Vui lòng nhập trường này";
-    rules.height = values.height.trim() ? "" : "Vui lòng nhập trường này";
-    rules.weight = values.weight.trim() ? "" : "Vui lòng nhập trường này";
-    rules.dateOfBirth = values.dateOfBirth.trim() ? "" : "Vui lòng nhập trường này";
-    rules.education = values.education.trim() ? "" : "Vui lòng nhập trường này";
-    rules.phone = values.phone.trim().length >= 10 ? "" : "vui lòng nhập số điện thoại";
-    rules.file = values.file ? "" : "vui lòng tải ảnh lên";
-    rules.email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email.trim()) ? "" : "Vui lòng nhập email";
-
-    const validate = () => {
-        return Object.values(rules).every(rule => rule == "");
-    }
-
-    const handleUploadFile = (e) => {
-        const file = e.target.files[0];
-        file.image = URL.createObjectURL(file);
-        setValues({
-            ...values,
-            file: file.image
-        })
+    const onSubmit = (data) => {
+        insertCandidate(data);
+        handleReset();
+        setOpen(true);
     }
 
-    const handleSubmit = () => {
-        if (validate()) {
-            insertCandidate(values);
-            setOpen(true);
-        } else {
-            window.alert("Vui lòng nhập đầy đủ thông tin")
-        }
+    const handleReset = () => {
+        setValue("fullName", "")
+        setValue("dateOfBirth", "")
+        setValue("phone", "")
+        setValue("email", "")
+        setValue("address", "")
+        setValue("profession", "")
+        setValue("national", "")
+        setValue("height", "")
+        setValue("weight", "")
+        setValue("education", "")
+        setValue("file", null)
     };
 
     const handleClose = (value) => {
         setOpen(false);
-    };
-
-    const handleReset = () => {
-        setValues(initialValues);
     };
 
 
@@ -176,20 +155,25 @@ export default function CandidateForm() {
                     Đăng ký tham dự
                 </Typography>
             </Box>
-            <Form className={classes.content}>
+            <form className={classes.content}>
                 <Grid container>
                     <Grid item className={classes.item}>
-                        <Controls.Input
-                            rule={rules.fullName}
+                        <TextField
+                            {...register("fullName", { required: "vui lòng nhập trường này" })}
+                            required
+                            color="secondary"
+                            variant='outlined'
+                            error={errors.fullName}
+                            helperText={errors.fullName?.message}
                             label='Họ và Tên'
-                            name='fullName'
-                            value={values.fullName}
-                            onChange={handleTextChange}
                         />
                         <TextField
+                            {...register("dateOfBirth", { required: "vui lòng nhập trường này" })}
                             required
-                            rule={rules.dateOfBirth}
                             color="secondary"
+                            variant='outlined'
+                            error={errors.dateOfBirth}
+                            helperText={errors.dateOfBirth?.message}
                             id="date"
                             label="Ngày sinh"
                             type="date"
@@ -197,98 +181,135 @@ export default function CandidateForm() {
                                 shrink: true,
                             }}
                             name='dateOfBirth'
-                            value={values.dateOfBirth}
-                            onChange={handleTextChange}
                         />
                     </Grid>
                     <Grid item className={classes.item}>
-                        <Controls.Input
-                            rule={rules.phone}
+                        <TextField
+                            {...register("phone", {
+                                required: "vui lòng nhập trường này",
+                                minLength: {
+                                    value: 10, message: "Vui lòng nhập số điện thoại"
+                                }
+                            })}
+                            required
+                            color="secondary"
+                            variant='outlined'
                             label='Số điện thoại'
-                            name='phone'
-                            value={values.phone}
-                            onChange={handleTextChange}
+                            error={errors.phone}
+                            helperText={errors.phone?.message}
                         />
-                        <Controls.Input
-                            rule={rules.email}
+                        <TextField
+                            {...register("email", {
+                                required: "vui lòng nhập trường này",
+                                pattern: {
+                                    value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                                    message: "vui lòng nhập email"
+                                }
+                            })}
+                            required
+                            color="secondary"
+                            variant='outlined'
                             label='Địa chỉ email'
-                            name='email'
-                            value={values.email}
-                            onChange={handleTextChange}
+                            error={errors.email}
+                            helperText={errors.email?.message}
                         />
                     </Grid>
                     <Grid item className={classes.item}>
-                        <Controls.Input
-                            rule={rules.address}
+                        <TextField
+                            {...register("address", { required: "vui lòng nhập trường này" })}
+                            required
+                            color="secondary"
+                            variant='outlined'
                             label='Địa chỉ liên hệ'
-                            name='address'
-                            value={values.address}
-                            onChange={handleTextChange}
+                            error={errors.address}
+                            helperText={errors.address?.message}
                         />
-                        <Controls.Input
-                            rule={rules.profession}
+                        <TextField
+                            {...register("profession", { required: "vui lòng nhập trường này" })}
+                            required
+                            color="secondary"
+                            variant='outlined'
                             label='Nghề nghiệp'
-                            name='profession'
-                            value={values.profession}
-                            onChange={handleTextChange}
+                            error={errors.profession}
+                            helperText={errors.profession?.message}
                         />
                     </Grid>
                     <Grid item className={classes.item}>
-                        <Controls.Input
-                            rule={rules.height}
+                        <TextField
+                            {...register("height", { required: "vui lòng nhập trường này" })}
+                            required
+                            color="secondary"
+                            variant='outlined'
                             label='Chiều cao'
-                            name='height'
-                            value={values.height}
-                            onChange={handleTextChange}
+                            error={errors.height}
+                            helperText={errors.height?.message}
                         />
-                        <Controls.Input
-                            rule={rules.weight}
+                        <TextField
+                            {...register("weight", { required: "vui lòng nhập trường này" })}
+                            required
+                            color="secondary"
+                            variant='outlined'
                             label='Cân nặng'
-                            name='weight'
-                            value={values.weight}
-                            onChange={handleTextChange}
+                            error={errors.weight}
+                            helperText={errors.weight?.message}
                         />
                     </Grid>
                     <Grid item className={classes.item}>
-                        <Controls.Input
-                            rule={rules.national}
+                        <TextField
+                            {...register("national", { required: "vui lòng nhập trường này" })}
+                            required
+                            color="secondary"
+                            variant='outlined'
                             label='Quốc tịch'
-                            name='national'
-                            value={values.national}
-                            onChange={handleTextChange}
+                            error={errors.national}
+                            helperText={errors.national?.message}
                         />
-                        <Controls.Input
-                            rule={rules.education}
+                        <TextField
+                            {...register("education", { required: "vui lòng nhập trường này" })}
+                            required
+                            color="secondary"
+                            variant='outlined'
                             label='Trình độ học vấn'
-                            name='education'
-                            value={values.education}
-                            onChange={handleTextChange}
+                            error={errors.education}
+                            helperText={errors.education?.message}
                         />
                     </Grid>
                     <Box className={classes.upload}>
                         <div>
-                        <Typography style={{ marginBottom: '10px' }}>Ảnh chân dung 3x4:</Typography>
-                        <label htmlFor="portrait-image">
-                            <Button
-                                variant="contained"
-                                component="span"
-                                className={classes.upLoadButton}
-                            >
-                                <CloudUploadIcon />
-                                <span> Tải ảnh lên</span>
-                                <input
-                                    file
-                                    accept="image/*"
-                                    id="portrait-image"
-                                    hidden
-                                    type="file"
-                                    onChange={handleUploadFile}
-                                />
-                            </Button>
-                        </label>
+                            <Typography style={{ marginBottom: '10px' }}>Ảnh chân dung 3x4:</Typography>
+                            <label htmlFor="portrait-image">
+                                <Button
+                                    variant="contained"
+                                    component="span"
+                                    className={classes.upLoadButton}
+                                >
+                                    <CloudUploadIcon />
+                                    <span> Tải ảnh lên</span>
+                                    <input
+                                        {...register("file", { required: "vui lòng tải ảnh lên" })}
+                                        file
+                                        accept="image/*"
+                                        id="portrait-image"
+                                        hidden
+                                        type="file"
+                                    />
+                                </Button>
+                                <p style={{
+                                    color: "#f44336",
+                                    fontSize: "12px",
+                                    fontFamily: "roboto",
+                                    marginLeft: "15px",
+                                    marginTop: "10px"
+                                }}
+                                >
+                                    {errors.file?.message}
+                                </p>
+                            </label>
                         </div>
                         <div>
-                        <img style={{ width: "70px", marginLeft: "20px", marginTop: "-20px" }} src={values.file} />
+                            <img
+                                style={{ height: "100px", marginLeft: "20px", marginTop: "-20px" }}
+                            />
                         </div>
                     </Box>
                     <Box className={classes.buttonGroup}>
@@ -296,22 +317,22 @@ export default function CandidateForm() {
                             variant="contained"
                             color="primary"
                             className={classes.button}
-                            onClick={handleSubmit}
+                            onClick={handleSubmit(onSubmit)}
                         >
                             Gửi thông tin
                         </Button>
                         <FormSuccessMessage open={open} onClose={handleClose} />
                         <Button
+                            onClick={handleReset}
                             variant="contained"
                             color="secondary"
                             className={classes.button}
-                            onClick={handleReset}
                         >
                             Nhập lại
                         </Button>
                     </Box>
                 </Grid>
-            </Form>
+            </form>
         </Paper>
     )
 }

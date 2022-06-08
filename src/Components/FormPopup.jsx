@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react';
-import { useForm, Form } from '../Components/UseForm';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Dialog, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import Controls from '../Components/Controls/Controls';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -71,18 +69,35 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         top: 0,
         right: 0,
-      }
+    }
 }));
-  
+
+const initialValues = {
+    id: "0",
+    fullName: "",
+    phone: "",
+    email: "",
+    address: "",
+    profession: "",
+    national: "",
+    height: "",
+    weight: "",
+    dateOfBirth: "",
+    education: "",
+    file: null
+}
 
 export default function FormPopup({ open, setOpen, records, recordForEdit }) {
     const classes = useStyles();
-    const {
-        values,
-        setValues,
-        handleTextChange
+    const [values, setValues] = useState(initialValues);
+
+    const handleTextChange = (e) => {
+        const { name, value } = e.target;
+        setValues({
+            ...values,
+            [name]: value
+        })
     }
-        = useForm({})
 
     const handleClose = () => {
         setOpen(false);
@@ -113,142 +128,171 @@ export default function FormPopup({ open, setOpen, records, recordForEdit }) {
     }, [recordForEdit])
 
 
-  return (
-    <Dialog aria-labelledby="candidate-detail" open={open} maxWidth="md">
-        <IconButton aria-label="delete" onClick={handleClose} className={classes.closeIcon}>
-        <CloseIcon />
-      </IconButton>
-      <Paper elevation={3} className={classes.root}>
-            <Typography
-                variant="h4"
-                component="div"
-                align='center'
-                color = "secondary"
-                className={classes.headTitle}
-            >
-                Chỉnh sửa thông tin thí sinh
-            </Typography>
-            <Form>
-                <Grid container p='3rem' className={classes.root}>
-                    <Grid item md={6} sm={12} className={classes.item}>
-                        <Controls.Input
-                            label='Họ và Tên'
-                            name='fullName'
-                            value={values.fullName}
-                            onChange={handleTextChange}
-                        />
-                        <Controls.Input
-                            label='Số điện thoại'
-                            name='phone'
-                            value={values.phone}
-                            onChange={handleTextChange}
-                        />
-                        <Controls.Input
-                            label='Địa chỉ email'
-                            name='email'
-                            value={values.email}
-                            onChange={handleTextChange}
-                        />
-                        <Controls.Input
-                            label='Địa chỉ liên hệ'
-                            name='address'
-                            value={values.address}
-                            onChange={handleTextChange}
-                        />
-                        <Controls.Input
-                            label='Nghề nghiệp'
-                            name='profession'
-                            value={values.profession}
-                            onChange={handleTextChange}
-                        />
-                        <Controls.Input
-                            label='Quốc tịch'
-                            name='national'
-                            value={values.national}
-                            onChange={handleTextChange}
-                        />
-                    </Grid>
-                    <Grid item md={6} sm={12}>
-                        <TextField
-                            color="secondary"
-                            id="date"
-                            label="Ngày sinh"
-                            type="date"
-                            defaultValue="2022-05-25"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            name='dateOfBirth'
-                            value={values.dateOfBirth}
-                            onChange={handleTextChange}
-                        />
-                        <Controls.Input
-                            label='Chiều cao'
-                            name='height'
-                            value={values.height}
-                            onChange={handleTextChange}
-                        />
-                        <Controls.Input
-                            label='Cân nặng'
-                            name='weight'
-                            value={values.weight}
-                            onChange={handleTextChange}
-                        />
-                        <Controls.Input
-                            label='Trình độ học vấn'
-                            name='education'
-                            value={values.education}
-                            onChange={handleTextChange}
-                        />
-                        <Box className={classes.upload}>
-                            <Typography style={{ marginBottom: '10px' }}>Ảnh chân dung 3x4:</Typography>
-                            <label htmlFor="portrait-image">
+    return (
+        <Dialog aria-labelledby="candidate-detail" open={open} maxWidth="md">
+            <IconButton aria-label="delete" onClick={handleClose} className={classes.closeIcon}>
+                <CloseIcon />
+            </IconButton>
+            <Paper elevation={3} className={classes.root}>
+                <Typography
+                    variant="h4"
+                    component="div"
+                    align='center'
+                    color="secondary"
+                    className={classes.headTitle}
+                >
+                    Chỉnh sửa thông tin thí sinh
+                </Typography>
+                <form>
+                    <Grid container p='3rem' className={classes.root}>
+                        <Grid item md={6} sm={12} className={classes.item}>
+                            <TextField
+                                required
+                                color="secondary"
+                                variant='outlined'
+                                label='Họ và Tên'
+                                name='fullName'
+                                value={values.fullName}
+                                onChange={handleTextChange}
+                            />
+                            <TextField
+                                required
+                                color="secondary"
+                                variant='outlined'
+                                label='Số điện thoại'
+                                name='phone'
+                                value={values.phone}
+                                onChange={handleTextChange}
+                            />
+                            <TextField
+                                required
+                                color="secondary"
+                                variant='outlined'
+                                label='Địa chỉ email'
+                                name='email'
+                                value={values.email}
+                                onChange={handleTextChange}
+                            />
+                            <TextField
+                                required
+                                color="secondary"
+                                variant='outlined'
+                                label='Địa chỉ liên hệ'
+                                name='address'
+                                value={values.address}
+                                onChange={handleTextChange}
+                            />
+                            <TextField
+                                required
+                                color="secondary"
+                                variant='outlined'
+                                label='Nghề nghiệp'
+                                name='profession'
+                                value={values.profession}
+                                onChange={handleTextChange}
+                            />
+                            <TextField
+                                required
+                                color="secondary"
+                                variant='outlined'
+                                label='Quốc tịch'
+                                name='national'
+                                value={values.national}
+                                onChange={handleTextChange}
+                            />
+                        </Grid>
+                        <Grid item md={6} sm={12}>
+                            <TextField
+                                required
+                                color="secondary"
+                                variant='outlined'
+                                id="date"
+                                label="Ngày sinh"
+                                type="date"
+                                defaultValue="2022-05-25"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                name='dateOfBirth'
+                                value={values.dateOfBirth}
+                                onChange={handleTextChange}
+                            />
+                            <TextField
+                                required
+                                color="secondary"
+                                variant='outlined'
+                                label='Chiều cao'
+                                name='height'
+                                value={values.height}
+                                onChange={handleTextChange}
+                            />
+                            <TextField
+                                required
+                                color="secondary"
+                                variant='outlined'
+                                label='Cân nặng'
+                                name='weight'
+                                value={values.weight}
+                                onChange={handleTextChange}
+                            />
+                            <TextField
+                                required
+                                color="secondary"
+                                variant='outlined'
+                                label='Trình độ học vấn'
+                                name='education'
+                                value={values.education}
+                                onChange={handleTextChange}
+                            />
+                            <Box className={classes.upload}>
+                                <Typography style={{ marginBottom: '10px' }}>Ảnh chân dung 3x4:</Typography>
+                                <label htmlFor="portrait-image">
+                                    <Button
+                                        variant="contained"
+                                        component="span"
+                                        className={classes.upLoadButton}
+                                    >
+                                        <CloudUploadIcon />
+                                        <span> Tải ảnh lên</span>
+                                    </Button>
+                                </label>
+                                <input
+                                    file
+                                    accept="image/*"
+                                    id="portrait-image"
+                                    multiple
+                                    type="file"
+                                    style={{
+                                        position: 'absolute',
+                                        top: "42px",
+                                        left: '31px',
+                                        fontSize: "1rem"
+                                    }}
+                                    onClick={handleUploadFile}
+                                />
+                            </Box>
+                            <Box className={classes.buttonGroup}>
                                 <Button
                                     variant="contained"
-                                    component="span"
-                                    className={classes.upLoadButton}
+                                    color="primary"
+                                    className={classes.button}
+                                    onClick={handleSubmit}
                                 >
-                                    <CloudUploadIcon />
-                                    <span> Tải ảnh lên</span>
+                                    Cập nhật
                                 </Button>
-                            </label>
-                            <input
-                                file
-                                accept="image/*"
-                                id="portrait-image"
-                                multiple
-                                type="file"
-                                style={{
-                                    position: 'absolute',
-                                    top: "42px",
-                                    left: '31px',
-                                    fontSize: "1rem"
-                                }}
-                                onClick={handleUploadFile}
-                            />
-                        </Box>
-                        <Box className={classes.buttonGroup}>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                className={classes.button}
-                                onClick={handleSubmit}
-                            >
-                                Cập nhật
-                            </Button>
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                className={classes.button}
-                                onClick={handleReset}
-                            >
-                                Nhập lại
-                            </Button>
-                        </Box>
+                                <Button
+                                    variant="contained"
+                                    color="secondary"
+                                    className={classes.button}
+                                    onClick={handleReset}
+                                >
+                                    Nhập lại
+                                </Button>
+                            </Box>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </Form>
-        </Paper>
-    </Dialog>
-  )
+                </form>
+            </Paper>
+        </Dialog>
+    )
 }
