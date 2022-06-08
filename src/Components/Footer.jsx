@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         color: 'white',
         [theme.breakpoints.down("sm")]: {
-            justifyContent: "space-between"
+            flexDirection: "column"
         }
     },
     footerLeft: {
@@ -27,26 +27,20 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Oswald',
         fontWeight: 400,
         fontSize: "1.5rem",
-        [theme.breakpoints.down("sm")]: {
-            display: "none",
-        }
     },
     footerRight: {
         padding: '1rem',
     },
     mediaLogo: {
         width: "10rem",
-        padding: '0.5rem'
+        padding: '0.4rem'
     },
     sponsor: {
         display: 'flex',
         alignItems: 'center',
-        [theme.breakpoints.down("sm")]: {
-            flexDirection: "column",
-        }
     },
     mediaSponsor: {
-        width: "8rem",
+        width: "5rem",
         padding: '0.5rem'
     },
     text: {

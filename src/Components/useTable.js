@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
-import { Table, TableCell, TableHead, TableRow, TablePagination, TableSortLabel, Typography } from '@material-ui/core'
+import { Table, TableCell, TableHead, TableRow, TablePagination, TableSortLabel } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        overflowX: "auto"
+        overflowX: "auto",
+        [theme.breakpoints.down("sm")]: {
+            display: "none"
+        },
     },
     table: {
         minWidth: 1000,
@@ -22,6 +25,11 @@ const useStyles = makeStyles(theme => ({
             cursor: 'pointer',
         },
     },
+    TblPagination: {
+        [theme.breakpoints.down("sm")]: {
+            display: "none"
+        },
+    }
 }))
 
 export default function useTable(records, headCells, filterFn) {
@@ -96,6 +104,7 @@ export default function useTable(records, headCells, filterFn) {
             rowsPerPageOptions={pages}
             rowsPerPage={rowsPerPage}
             count={records.length}
+            className={classes.TblPagination}
             onChangePage={handleChangePage}
             onChangeRowsPerPage={hangdleChangeRowsPerPage}
             labelRowsPerPage="số dòng trên trang"

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import useTable from '../Components/useTable'
 import { getAllCandidate } from '../services/employeeService';
-import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment, TextField } from '@material-ui/core';
+import { Paper, makeStyles, Table, TableBody, TableHead, TableRow, TableCell, Toolbar, InputAdornment, TextField } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
@@ -36,8 +36,27 @@ const useStyles = makeStyles(theme => ({
       marginBottom: theme.spacing(3)
     }
   },
-  table: {
+  tableDesktop: {
     width: "80%",
+  },
+  mobileTable: {
+    display: "none",
+    [theme.breakpoints.down("sm")]: {
+      display: "block",
+    },
+    '& thead th': {
+      fontWeight: '600',
+      color: theme.palette.primary.main,
+      backgroundColor: theme.palette.primary.light,
+      width: "10rem"
+    },
+    '& tbody td': {
+      fontWeight: '300',
+    },
+    '& tbody tr:hover': {
+      backgroundColor: '#fffbf2',
+      cursor: 'pointer',
+    },
   },
   data: {
     paddingRight: theme.spacing(5)
@@ -130,7 +149,7 @@ export default function CandidatesManagement() {
         align='right'
       >Tổng số: {records.length}
       </Typography>
-      <TblContainer className={classes.table}>
+      <TblContainer className={classes.tableDesktop}>
         <TblHead />
         <TableBody>
           {
@@ -158,6 +177,52 @@ export default function CandidatesManagement() {
             ))}
         </TableBody>
       </TblContainer>
+      {
+        recordsAfterPagingAndSorting().map(item => (
+          <Table className={classes.mobileTable} key={item.id}>
+            <TableHead>
+              <TableRow>
+                <TableCell>Thí sinh</TableCell>
+                <TableCell align='center'>{item.fullName}</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableRow>
+              <TableCell>Số báo danh</TableCell>
+              <TableCell align='center'>{"0" + item.id}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Năm sinh</TableCell>
+              <TableCell align='center'>{item.dateOfBirth.slice(0, 4)}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Chiều cao</TableCell>
+              <TableCell align='center'>{item.height}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Cân nặng</TableCell>
+              <TableCell align='center'>{item.weight}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Quốc tịch</TableCell>
+              <TableCell align='center'>{item.national}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Thao tác</TableCell>
+              <TableCell align='center'>
+                <IconButton onClick={() => handleClickView(item)}>
+                  <VisibilityIcon fontSize='small' />
+                </IconButton>
+                <IconButton onClick={() => handleClickEdit(item)}>
+                  <EditIcon fontSize='small' />
+                </IconButton>
+                <IconButton onClick={() => handleClickDelete(item)}>
+                  <DeleteIcon fontSize='small' />
+                </IconButton>
+              </TableCell>
+            </TableRow>
+          </Table>
+        ))
+      }
       <TblPagination />
       <CandidatePopup open={view} setOpen={setView} item={recordForEdit} />
       <FormPopup open={open} setOpen={setOpen} recordForEdit={recordForEdit} records={records} />
