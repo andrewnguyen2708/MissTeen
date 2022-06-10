@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Dialog, IconButton } from '@material-ui/core';
+import { Container, Dialog, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Box from '@material-ui/core/Box';
@@ -13,9 +12,9 @@ import { TextField } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        padding: '2rem 2rem',
+        padding: theme.spacing(5),
         '& .MuiFormControl-root': {
-            width: '80%',
+            width: '25rem',
             margin: '20px',
             [theme.breakpoints.down('sm')]: {
                 width: '90%',
@@ -32,29 +31,39 @@ const useStyles = makeStyles((theme) => ({
     headTitle: {
         textAlign: "left",
         fontWeight: "600",
-        paddingLeft: theme.spacing(6),
+        marginLeft: '20px',
+        marginBottom: '20px',
         [theme.breakpoints.down('sm')]: {
-            marginLeft: -theme.spacing(4),
             fontSize: "1.3rem"
         }
     },
+    content: {
+        width: "100%",
+    },
+    gridContainer: {
+        gridGap: theme.spacing(2)
+    },
+    item: {
+        display: "flex",
+        width: "100%",
+        gap: theme.spacing(5),
+        [theme.breakpoints.down('sm')]: {
+            flexDirection: 'column',
+            gap: theme.spacing(0),
+        }
+    },
     upload: {
-        position: 'relative',
-        display: 'flex',
-        flexDirection: 'column',
-        width: '80%',
-        margin: '20px',
-        marginLeft: '25px'
+        marginLeft: '20px',
     },
     label: {
         marginBottom: theme.spacing(2),
     },
     buttonGroup: {
         display: 'flex',
-        width: '80%',
-        margin: '20px',
+        width: '160%',
+        marginTop: "20px",
         [theme.breakpoints.down('sm')]: {
-            width: '100%',
+            width: '120%',
             margin: '0px',
         }
     },
@@ -133,7 +142,7 @@ export default function FormPopup({ open, setOpen, records, recordForEdit }) {
             <IconButton aria-label="delete" onClick={handleClose} className={classes.closeIcon}>
                 <CloseIcon />
             </IconButton>
-            <Paper elevation={3} className={classes.root}>
+            <Container className={classes.root}>
                 <Typography
                     variant="h4"
                     component="div"
@@ -143,15 +152,15 @@ export default function FormPopup({ open, setOpen, records, recordForEdit }) {
                 >
                     Chỉnh sửa thông tin thí sinh
                 </Typography>
-                <form>
-                    <Grid container p='3rem' className={classes.root}>
-                        <Grid item md={6} sm={12} className={classes.item}>
+                <form className={classes.content}>
+                    <Grid container>
+                        <Grid item className={classes.item}>
                             <TextField
                                 required
                                 color="secondary"
                                 variant='outlined'
                                 label='Họ và Tên'
-                                name='fullName'
+                                name="fullName"
                                 value={values.fullName}
                                 onChange={handleTextChange}
                             />
@@ -159,8 +168,24 @@ export default function FormPopup({ open, setOpen, records, recordForEdit }) {
                                 required
                                 color="secondary"
                                 variant='outlined'
+                                id="date"
+                                label="Ngày sinh"
+                                value={values.dateOfBirth}
+                                onChange={handleTextChange}
+                                type="date"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                name='dateOfBirth'
+                            />
+                        </Grid>
+                        <Grid item className={classes.item}>
+                            <TextField
+                                required
+                                color="secondary"
+                                variant='outlined'
                                 label='Số điện thoại'
-                                name='phone'
+                                name="phone"
                                 value={values.phone}
                                 onChange={handleTextChange}
                             />
@@ -169,16 +194,18 @@ export default function FormPopup({ open, setOpen, records, recordForEdit }) {
                                 color="secondary"
                                 variant='outlined'
                                 label='Địa chỉ email'
-                                name='email'
+                                name="email"
                                 value={values.email}
                                 onChange={handleTextChange}
                             />
+                        </Grid>
+                        <Grid item className={classes.item}>
                             <TextField
                                 required
                                 color="secondary"
                                 variant='outlined'
                                 label='Địa chỉ liên hệ'
-                                name='address'
+                                name="address"
                                 value={values.address}
                                 onChange={handleTextChange}
                             />
@@ -187,42 +214,18 @@ export default function FormPopup({ open, setOpen, records, recordForEdit }) {
                                 color="secondary"
                                 variant='outlined'
                                 label='Nghề nghiệp'
-                                name='profession'
+                                name="profession"
                                 value={values.profession}
                                 onChange={handleTextChange}
                             />
-                            <TextField
-                                required
-                                color="secondary"
-                                variant='outlined'
-                                label='Quốc tịch'
-                                name='national'
-                                value={values.national}
-                                onChange={handleTextChange}
-                            />
                         </Grid>
-                        <Grid item md={6} sm={12}>
-                            <TextField
-                                required
-                                color="secondary"
-                                variant='outlined'
-                                id="date"
-                                label="Ngày sinh"
-                                type="date"
-                                defaultValue="2022-05-25"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                name='dateOfBirth'
-                                value={values.dateOfBirth}
-                                onChange={handleTextChange}
-                            />
+                        <Grid item className={classes.item}>
                             <TextField
                                 required
                                 color="secondary"
                                 variant='outlined'
                                 label='Chiều cao'
-                                name='height'
+                                name="height"
                                 value={values.height}
                                 onChange={handleTextChange}
                             />
@@ -231,8 +234,19 @@ export default function FormPopup({ open, setOpen, records, recordForEdit }) {
                                 color="secondary"
                                 variant='outlined'
                                 label='Cân nặng'
-                                name='weight'
+                                name="weight"
                                 value={values.weight}
+                                onChange={handleTextChange}
+                            />
+                        </Grid>
+                        <Grid item className={classes.item}>
+                            <TextField
+                                required
+                                color="secondary"
+                                variant='outlined'
+                                label='Quốc tịch'
+                                name="national"
+                                value={values.national}
                                 onChange={handleTextChange}
                             />
                             <TextField
@@ -240,36 +254,37 @@ export default function FormPopup({ open, setOpen, records, recordForEdit }) {
                                 color="secondary"
                                 variant='outlined'
                                 label='Trình độ học vấn'
-                                name='education'
+                                name="education"
                                 value={values.education}
                                 onChange={handleTextChange}
                             />
+                        </Grid>
+                        <Box flexDirection="column">
                             <Box className={classes.upload}>
-                                <Typography style={{ marginBottom: '10px' }}>Ảnh chân dung 3x4:</Typography>
-                                <label htmlFor="portrait-image">
-                                    <Button
-                                        variant="contained"
-                                        component="span"
-                                        className={classes.upLoadButton}
-                                    >
-                                        <CloudUploadIcon />
-                                        <span> Tải ảnh lên</span>
-                                    </Button>
-                                </label>
-                                <input
-                                    file
-                                    accept="image/*"
-                                    id="portrait-image"
-                                    multiple
-                                    type="file"
-                                    style={{
-                                        position: 'absolute',
-                                        top: "42px",
-                                        left: '31px',
-                                        fontSize: "1rem"
-                                    }}
-                                    onClick={handleUploadFile}
-                                />
+                                <div>
+                                    <Typography style={{ marginBottom: '10px' }}>Ảnh chân dung 3x4:</Typography>
+                                    <label htmlFor="portrait-image">
+                                        <Button
+                                            variant="contained"
+                                            component="span"
+                                            className={classes.upLoadButton}
+                                        >
+                                            <CloudUploadIcon />
+                                            <span> Tải ảnh lên</span>
+                                            <input
+                                                file
+                                                accept="image/*"
+                                                id="portrait-image"
+                                                hidden
+                                                type="file"
+                                                name="file"
+                                                onChange={handleUploadFile}
+                                            />
+                                        </Button>
+                                    </label>
+                                </div>
+                                <div>
+                                </div>
                             </Box>
                             <Box className={classes.buttonGroup}>
                                 <Button
@@ -289,10 +304,10 @@ export default function FormPopup({ open, setOpen, records, recordForEdit }) {
                                     Nhập lại
                                 </Button>
                             </Box>
-                        </Grid>
+                        </Box>
                     </Grid>
                 </form>
-            </Paper>
+            </Container>
         </Dialog>
     )
 }

@@ -33,7 +33,10 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "700px",
     [theme.breakpoints.down("sm")]: {
       margin: '75px 0px 0px 0px',
-      padding: "0px"
+      padding: "0px",
+    },
+    [theme.breakpoints.up("lg")]: {
+      maxWidth: "false"
     }
   },
   menu: {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import useTable from '../Components/useTable'
 import { getAllCandidate } from '../services/employeeService';
-import { Paper, makeStyles, Table, TableBody, TableHead, TableRow, TableCell, Toolbar, InputAdornment, TextField } from '@material-ui/core';
+import { Paper, makeStyles, Table, TableBody, TableHead, TableRow, TableCell, Toolbar, InputAdornment, TextField, List, Button, Collapse, ListItem } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
@@ -14,9 +14,10 @@ import CandidatePopup from "../Components/CandidatePopup";
 const useStyles = makeStyles(theme => ({
   root: {
     display: "block",
-    padding: "4rem",
+    padding: "3rem",
     [theme.breakpoints.down("sm")]: {
-      padding: theme.spacing(3)
+      padding: "1.5rem",
+      paddingTop: "3rem"
     }
   },
   headTitle: {
@@ -41,6 +42,8 @@ const useStyles = makeStyles(theme => ({
   },
   mobileTable: {
     display: "none",
+    marginLeft: "-20px",
+    width: "110%",
     [theme.breakpoints.down("sm")]: {
       display: "block",
     },
@@ -60,7 +63,7 @@ const useStyles = makeStyles(theme => ({
   },
   data: {
     paddingRight: theme.spacing(5)
-  }
+  },
 }))
 
 const headCells = [
@@ -77,6 +80,7 @@ export default function CandidatesManagement() {
   let num = 1;
   const [records, setRecords] = useState(getAllCandidate());
   const [open, setOpen] = useState(false)
+  const [toggle, setToggle] = useState(false)
   const [view, setView] = useState(false)
   const [recordForEdit, setRecordForEdit] = useState({});
   const [filterFn, setFilterFn] = useState({ fn: items => { return items; } })
@@ -111,8 +115,12 @@ export default function CandidatesManagement() {
   }
 
   const handleClickDelete = (item) => {
-    setRecords(records.filter(record => record.id !== item.id));
+    setRecords(records.filter(record => record.id !== item.id))
     localStorage.setItem("CandidateList", JSON.stringify(records.filter(record => record.id !== item.id)))
+  }
+
+  const handleToggle = () => {
+    setToggle(!toggle)
   }
 
   return (
@@ -132,6 +140,7 @@ export default function CandidatesManagement() {
           variant='outlined'
           color="secondary"
           label="Tìm kiếm thí sinh"
+          placeholder="Tìm kiếm số báo danh, họ tên hoặc năm sinh"
           className={classes.searchInput}
           InputProps={{
             startAdornment: (
@@ -177,52 +186,111 @@ export default function CandidatesManagement() {
             ))}
         </TableBody>
       </TblContainer>
-      {
-        recordsAfterPagingAndSorting().map(item => (
-          <Table className={classes.mobileTable} key={item.id}>
-            <TableHead>
-              <TableRow>
-                <TableCell>Thí sinh</TableCell>
-                <TableCell align='center'>{item.fullName}</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableRow>
-              <TableCell>Số báo danh</TableCell>
-              <TableCell align='center'>{"0" + item.id}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Năm sinh</TableCell>
-              <TableCell align='center'>{item.dateOfBirth.slice(0, 4)}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Chiều cao</TableCell>
-              <TableCell align='center'>{item.height}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Cân nặng</TableCell>
-              <TableCell align='center'>{item.weight}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Quốc tịch</TableCell>
-              <TableCell align='center'>{item.national}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Thao tác</TableCell>
-              <TableCell align='center'>
-                <IconButton onClick={() => handleClickView(item)}>
-                  <VisibilityIcon fontSize='small' />
-                </IconButton>
-                <IconButton onClick={() => handleClickEdit(item)}>
-                  <EditIcon fontSize='small' />
-                </IconButton>
-                <IconButton onClick={() => handleClickDelete(item)}>
-                  <DeleteIcon fontSize='small' />
-                </IconButton>
-              </TableCell>
-            </TableRow>
-          </Table>
-        ))
-      }
+      <List className={classes.mobileTable}>
+        {
+          recordsAfterPagingAndSorting().map((item, index) => {
+            if (index < 2) {
+              return (
+                <ListItem style={{ display: "flex", flexDirection: "column" }}>
+                  <Table key={item.id}>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Thí sinh</TableCell>
+                        <TableCell align='center'>{item.fullName}</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableRow>
+                      <TableCell>Số báo danh</TableCell>
+                      <TableCell align='center'>{"0" + item.id}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Năm sinh</TableCell>
+                      <TableCell align='center'>{item.dateOfBirth.slice(0, 4)}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Chiều cao</TableCell>
+                      <TableCell align='center'>{item.height}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Cân nặng</TableCell>
+                      <TableCell align='center'>{item.weight}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Quốc tịch</TableCell>
+                      <TableCell align='center'>{item.national}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Thao tác</TableCell>
+                      <TableCell align='center'>
+                        <IconButton onClick={() => handleClickView(item)}>
+                          <VisibilityIcon fontSize='small' />
+                        </IconButton>
+                        <IconButton onClick={() => handleClickEdit(item)}>
+                          <EditIcon fontSize='small' />
+                        </IconButton>
+                        <IconButton onClick={() => handleClickDelete(item)}>
+                          <DeleteIcon fontSize='small' />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  </Table>
+                </ListItem>
+              )
+            }
+              return (
+                <Collapse in={toggle} timeout="auto" unmountOnExit>
+                  <ListItem>
+                    <Table key={item.id}>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Thí sinh</TableCell>
+                          <TableCell align='center'>{item.fullName}</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableRow>
+                        <TableCell>Số báo danh</TableCell>
+                        <TableCell align='center'>{"0" + item.id}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Năm sinh</TableCell>
+                        <TableCell align='center'>{item.dateOfBirth.slice(0, 4)}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Chiều cao</TableCell>
+                        <TableCell align='center'>{item.height}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Cân nặng</TableCell>
+                        <TableCell align='center'>{item.weight}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Quốc tịch</TableCell>
+                        <TableCell align='center'>{item.national}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Thao tác</TableCell>
+                        <TableCell align='center'>
+                          <IconButton onClick={() => handleClickView(item)}>
+                            <VisibilityIcon fontSize='small' />
+                          </IconButton>
+                          <IconButton onClick={() => handleClickEdit(item)}>
+                            <EditIcon fontSize='small' />
+                          </IconButton>
+                          <IconButton onClick={() => handleClickDelete(item)}>
+                            <DeleteIcon fontSize='small' />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    </Table>
+                  </ListItem>
+                </Collapse>
+              )
+            })
+        }
+        <div style={{marginLeft: "9rem" }}>
+        <Button onClick={handleToggle}>{ !toggle ? "Xem thêm" : "ẩn bớt"}</Button>
+        </div>
+      </List>
       <TblPagination />
       <CandidatePopup open={view} setOpen={setView} item={recordForEdit} />
       <FormPopup open={open} setOpen={setOpen} recordForEdit={recordForEdit} records={records} />

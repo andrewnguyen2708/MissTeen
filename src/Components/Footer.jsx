@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        backgroundColor: "#FA8072",
+        backgroundColor: theme.palette.primary.main,
     },
     container: {
         display: 'flex',
@@ -22,6 +22,10 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'start',
+        paddingTop: "1rem",
+        [theme.breakpoints.down("sm")]: {
+            paddingBottom: "0rem"
+        }
     },
     title: {
         fontFamily: 'Oswald',

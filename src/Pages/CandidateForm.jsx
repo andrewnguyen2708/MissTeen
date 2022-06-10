@@ -13,9 +13,10 @@ import { insertCandidate } from '../services/employeeService';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        padding: '4rem 4rem',
+        padding: '3rem',
         [theme.breakpoints.down('sm')]: {
-            padding: "1.5rem"
+            padding: "1.5rem",
+            paddingTop: "3rem"
         },
         '& .MuiFormControl-root': {
             width: '100%',
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     headTitle: {
         textAlign: "center",
         color: theme.palette.primary.main,
-        padding: theme.spacing(3),
+        padding: theme.spacing(2),
         fontWeight: "600",
         paddingLeft: theme.spacing(6),
         [theme.breakpoints.down('sm')]: {
@@ -66,7 +67,6 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: theme.spacing(3),
         [theme.breakpoints.down('sm')]: {
             marginLeft: "0px",
-            marginTop: theme.spacing(4)
         }
     },
     label: {
@@ -95,8 +95,6 @@ export default function CandidateForm() {
     const {
         register,
         handleSubmit,
-        watch,
-        reset,
         setValue,
         formState: { errors }
     }
@@ -274,7 +272,7 @@ export default function CandidateForm() {
                             helperText={errors.education?.message}
                         />
                     </Grid>
-                    <Box className={classes.upload}>
+                    <Box align="center" className={classes.upload}>
                         <div>
                             <Typography style={{ marginBottom: '10px' }}>Ảnh chân dung 3x4:</Typography>
                             <label htmlFor="portrait-image">

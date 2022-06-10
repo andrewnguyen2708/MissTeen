@@ -20,7 +20,7 @@ export default function ContestRules() {
     const classes = useStyles();
     
     return (
-            <Paper elevation={5} >
+            <Paper elevation={5} style={{ paddingTop: "2rem" }}>
                 <CardMedia
                     component="img"
                     alt="cover"
