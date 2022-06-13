@@ -28,8 +28,8 @@ export default function Header({ children }) {
     const classes = useStyles();
 
     return (
-        <AppBar position='fixed' className={classes.root}>
-            <Container width='100%' className={classes.container}>
+        <AppBar position='fixed' className={classes.root} maxWidth={false}>
+            <Container width='100%' className={classes.container} maxWidth={false}>
                 <Box className={classes.navigation}>
                     <CardMedia
                         component="img"

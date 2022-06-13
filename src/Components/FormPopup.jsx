@@ -138,7 +138,7 @@ export default function FormPopup({ open, setOpen, records, recordForEdit }) {
 
 
     return (
-        <Dialog aria-labelledby="candidate-detail" open={open} maxWidth="md">
+        <Dialog aria-labelledby="candidate-detail" open={open} onClose={handleClose} maxWidth="md">
             <IconButton aria-label="delete" onClick={handleClose} className={classes.closeIcon}>
                 <CloseIcon />
             </IconButton>

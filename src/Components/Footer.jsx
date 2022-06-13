@@ -62,7 +62,7 @@ export default function Footer() {
 
     return (
         <footer className={classes.root}>
-            <Container maxWidth="xl" className={classes.container}>
+            <Container className={classes.container} maxWidth={false}>
                 <Box className={classes.footerLeft}>
                     <Typography className={classes.title}>HOA HẬU VIỆT NAM</Typography>
                     <Box className={classes.sponsor}>

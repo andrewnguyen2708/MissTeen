@@ -31,13 +31,11 @@ const useStyles = makeStyles((theme) => ({
   container: {
     margin: '100px auto 50px auto',
     minHeight: "700px",
+    maxWidth: false,
     [theme.breakpoints.down("sm")]: {
       margin: '75px 0px 0px 0px',
       padding: "0px",
     },
-    [theme.breakpoints.up("lg")]: {
-      maxWidth: "false"
-    }
   },
   menu: {
     display: 'flex',
@@ -45,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
     [theme.breakpoints.down('md')]: {
       display: 'none'
+    },
+    [theme.breakpoints.up('xl')]: {
+      width: '30%'
     }
   },
   link: {

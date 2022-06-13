@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
                 marginRight: "auto",
             }
         },
+        [theme.breakpoints.up('xl')]: {
+            padding: "2% 10%"
+        }
     },
     head: {
         width: "100%",
@@ -307,6 +310,7 @@ export default function CandidateForm() {
                         <div>
                             <img
                                 style={{ height: "100px", marginLeft: "20px", marginTop: "-20px" }}
+                                alt="portrait"
                             />
                         </div>
                     </Box>

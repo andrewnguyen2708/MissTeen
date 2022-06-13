@@ -58,7 +58,7 @@ export default function CandidatePopup(props) {
   };
 
   return (
-    <Dialog aria-labelledby="candidate-detail" open={open} maxWidth="md">
+    <Dialog aria-labelledby="candidate-detail" open={open} maxWidth="md" onClose={handleClose}>
       <IconButton aria-label="delete" onClick={handleClose} className={classes.closeIcon}>
         <CloseIcon />
       </IconButton>
