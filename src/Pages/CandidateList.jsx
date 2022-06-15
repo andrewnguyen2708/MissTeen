@@ -125,8 +125,11 @@ export default function CandidateList() {
                         )
                     })
                 }
-                    <Button onClick={handleToggle} style={{ marginTop: "-50px", marginLeft: "10rem", padding: "0px" }}>{!toggle ? "Xem thêm" : "ẩn bớt"}</Button>
+                <Button onClick={handleToggle} style={{ marginTop: "-50px", marginLeft: "10rem", padding: "0px" }}>{!toggle ? "Xem thêm" : "ẩn bớt"}</Button>
             </Grid>
+            <Typography align="center" style={{ paddingTop: "20px" }}>
+                {CandidateList.length > 0 ? "" : "Không có thông tin thí sinh"}
+            </Typography>
         </Paper >
     )
 }

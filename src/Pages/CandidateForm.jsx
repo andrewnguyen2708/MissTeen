@@ -308,10 +308,6 @@ export default function CandidateForm() {
                             </label>
                         </div>
                         <div>
-                            <img
-                                style={{ height: "100px", marginLeft: "20px", marginTop: "-20px" }}
-                                alt="portrait"
-                            />
                         </div>
                     </Box>
                     <Box className={classes.buttonGroup}>

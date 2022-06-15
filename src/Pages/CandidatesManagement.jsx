@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import useTable from '../Components/useTable'
+import FormPopup from '../Components/FormPopup';
+import CandidatePopup from "../Components/CandidatePopup";
 import { getAllCandidate } from '../services/employeeService';
 import { Paper, makeStyles, Table, TableBody, TableHead, TableRow, TableCell, Toolbar, InputAdornment, TextField, List, Button, Collapse, ListItem } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
@@ -8,8 +10,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
 import { Search } from "@material-ui/icons";
-import FormPopup from '../Components/FormPopup';
-import CandidatePopup from "../Components/CandidatePopup";
+import DeleteConfirmPopup from '../Components/DeleteConfirmPopup';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -79,11 +80,12 @@ export default function CandidatesManagement() {
   const classes = useStyles();
   let num = 1;
   const [records, setRecords] = useState(getAllCandidate());
-  const [open, setOpen] = useState(false)
-  const [toggle, setToggle] = useState(false)
-  const [view, setView] = useState(false)
+  const [open, setOpen] = useState(false);
+  const [toggle, setToggle] = useState(false);
+  const [view, setView] = useState(false);
+  const [confirm, setConfirm] = useState(false);
   const [recordForEdit, setRecordForEdit] = useState({});
-  const [filterFn, setFilterFn] = useState({ fn: items => { return items; } })
+  const [filterFn, setFilterFn] = useState({ fn: items => { return items; } });
 
   const {
     page,
@@ -115,8 +117,8 @@ export default function CandidatesManagement() {
   }
 
   const handleClickDelete = (item) => {
-    setRecords(records.filter(record => record.id !== item.id))
-    localStorage.setItem("CandidateList", JSON.stringify(records.filter(record => record.id !== item.id)))
+    setRecordForEdit(item);
+    setConfirm(true);
   }
 
   const handleToggle = () => {
@@ -162,7 +164,7 @@ export default function CandidatesManagement() {
         <TblHead />
         <TableBody>
           {
-            recordsAfterPagingAndSorting().map(item => (
+             recordsAfterPagingAndSorting().map(item => (
               <TableRow key={item.id}>
                 <TableCell align="center">{page * 5 + num++}</TableCell>
                 <TableCell align="center" className={classes.data}>{item.id < 10 ? "0" + item.id : item.id}</TableCell>
@@ -237,63 +239,74 @@ export default function CandidatesManagement() {
                 </ListItem>
               )
             }
-              return (
-                <Collapse in={toggle} timeout="auto" unmountOnExit>
-                  <ListItem>
-                    <Table key={item.id}>
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>Thí sinh</TableCell>
-                          <TableCell align='center'>{item.fullName}</TableCell>
-                        </TableRow>
-                      </TableHead>
+            return (
+              <Collapse in={toggle} timeout="auto" unmountOnExit>
+                <ListItem>
+                  <Table key={item.id}>
+                    <TableHead>
                       <TableRow>
-                        <TableCell>Số báo danh</TableCell>
-                        <TableCell align='center'>{"0" + item.id}</TableCell>
+                        <TableCell>Thí sinh</TableCell>
+                        <TableCell align='center'>{item.fullName}</TableCell>
                       </TableRow>
-                      <TableRow>
-                        <TableCell>Năm sinh</TableCell>
-                        <TableCell align='center'>{item.dateOfBirth.slice(0, 4)}</TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell>Chiều cao</TableCell>
-                        <TableCell align='center'>{item.height}</TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell>Cân nặng</TableCell>
-                        <TableCell align='center'>{item.weight}</TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell>Quốc tịch</TableCell>
-                        <TableCell align='center'>{item.national}</TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell>Thao tác</TableCell>
-                        <TableCell align='center'>
-                          <IconButton onClick={() => handleClickView(item)}>
-                            <VisibilityIcon fontSize='small' />
-                          </IconButton>
-                          <IconButton onClick={() => handleClickEdit(item)}>
-                            <EditIcon fontSize='small' />
-                          </IconButton>
-                          <IconButton onClick={() => handleClickDelete(item)}>
-                            <DeleteIcon fontSize='small' />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    </Table>
-                  </ListItem>
-                </Collapse>
-              )
-            })
+                    </TableHead>
+                    <TableRow>
+                      <TableCell>Số báo danh</TableCell>
+                      <TableCell align='center'>{"0" + item.id}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Năm sinh</TableCell>
+                      <TableCell align='center'>{item.dateOfBirth.slice(0, 4)}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Chiều cao</TableCell>
+                      <TableCell align='center'>{item.height}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Cân nặng</TableCell>
+                      <TableCell align='center'>{item.weight}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Quốc tịch</TableCell>
+                      <TableCell align='center'>{item.national}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Thao tác</TableCell>
+                      <TableCell align='center'>
+                        <IconButton onClick={() => handleClickView(item)}>
+                          <VisibilityIcon fontSize='small' />
+                        </IconButton>
+                        <IconButton onClick={() => handleClickEdit(item)}>
+                          <EditIcon fontSize='small' />
+                        </IconButton>
+                        <IconButton onClick={() => handleClickDelete(item)}>
+                          <DeleteIcon fontSize='small' />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  </Table>
+                </ListItem>
+              </Collapse>
+            )
+          })
         }
-        <div style={{marginLeft: "9rem" }}>
-        <Button onClick={handleToggle}>{ !toggle ? "Xem thêm" : "ẩn bớt"}</Button>
+        <div style={{ marginLeft: "9rem" }}>
+          <Button onClick={handleToggle}>{!toggle ? "Xem thêm" : "ẩn bớt"}</Button>
         </div>
       </List>
+      <Typography align="center" style={{ paddingTop: "20px" }}>
+      { recordsAfterPagingAndSorting().length > 0 ? "" : "Không có thông tin thí sinh" }
+      </Typography>
       <TblPagination />
       <CandidatePopup open={view} setOpen={setView} item={recordForEdit} />
       <FormPopup open={open} setOpen={setOpen} recordForEdit={recordForEdit} records={records} />
+      <DeleteConfirmPopup
+        open={confirm}
+        setOpen={setConfirm}
+        handleClickDelete={handleClickDelete}
+        recordForEdit={recordForEdit}
+        records={records}
+        setRecords={setRecords}
+      />
     </Paper>
   )
 }
